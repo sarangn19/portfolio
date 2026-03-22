@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flow — Designing Against EMI Blindness · Sarang N</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="shared.css"/>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <nav class="cs-nav">
+    <a class="cs-nav-logo" href="index.html">Sarang.</a>
+    <a class="cs-nav-back" href="index.html#work">← Back to Work</a>
+  </nav>
+  <div class="cs-hero">
+    <span class="cs-tag">Case Study · Fintech · UX Research + Product Design</span>
+    <h1 class="cs-hero-title">Flow — Designing Against <em>EMI Blindness</em></h1>
+    <p class="cs-hero-sub">Young professionals misread their bank balance as savings. A financial decision-support tool that shows real savings, predicts EMI impact, and helps users spend with confidence.</p>
+    <div class="cs-meta-row">
+      <div class="cs-meta-item"><span class="cs-meta-label">Domain</span><span class="cs-meta-val">Fintech · Personal Finance</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Type</span><span class="cs-meta-val">UX Research + Product Design</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Research</span><span class="cs-meta-val">30 Interviews · 70 Survey Responses</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Tools</span><span class="cs-meta-val">Figma · FigJam · Research</span></div>
+    </div>
+  </div>
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-label">On this page</div>
+      <a href="#overview">Overview</a>
+      <a href="#research-q">Research Questions</a>
+      <a href="#competitor">Competitor Analysis</a>
+      <a href="#survey">Survey Findings</a>
+      <a href="#insights">Insights</a>
+      <a href="#affinity">Affinity Mapping</a>
+      <a href="#personas">Personas</a>
+      <a href="#problem">Problem Statement</a>
+      <a href="#hmw">HMW</a>
+      <a href="#ia">IA</a>
+      <a href="#flows">User Flows</a>
+      <a href="#hypothesis">Hypothesis</a>
+      <div class="toc-spacer"></div>
+      <a href="index.html#work" class="toc-back">← Back to Work</a>
+    </aside>
+    <div class="cs-body">
+      <div class="cs-content">
+
+        <div class="cs-section reveal" id="overview">
+          <span class="cs-section-label">Overview</span>
+          <h2 class="cs-section-title">The problem hiding in plain sight</h2>
+          <p class="cs-body-text">Young professionals (22–30) often struggle to reconcile their available balance with their actual savings. Fixed EMIs, variable daily expenses, and fragmented financial tools create a false sense of financial security.</p>
+          <p class="cs-body-text">Current financial apps act as digital passbooks — they record the past. They do not help users predict the future. This leads to "EMI Blindness," where users commit to new installments without understanding the long-term erosion of their monthly liquidity.</p>
+          <div class="pull-quote"><p>"If my account shows ₹20k left, I assume I'm doing okay."</p><cite>User interview, 25-year-old software engineer</cite></div>
+        </div>
+
+        <div class="cs-section reveal" id="research-q">
+          <span class="cs-section-label">Research Questions</span>
+          <h2 class="cs-section-title">What we set out to understand</h2>
+          <div class="card-grid">
+            <div class="card"><div class="card-num">Question 01</div><div class="card-title">Tracking habits</div><div class="card-body">How do young professionals currently track their income, expenses, and EMIs?</div></div>
+            <div class="card"><div class="card-num">Question 02</div><div class="card-title">Tools in use</div><div class="card-body">What apps or tools do they use for financial management today?</div></div>
+            <div class="card"><div class="card-num">Question 03</div><div class="card-title">EMI decisions</div><div class="card-body">How do users decide whether they can afford a new EMI or loan?</div></div>
+            <div class="card dark"><div class="card-num">Core question</div><div class="card-title">Do users know their real savings?</div><div class="card-body">Do users clearly know how much they actually save each month after all expenses and EMIs?</div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="competitor">
+          <span class="cs-section-label">Secondary Research · Competitor Analysis</span>
+          <h2 class="cs-section-title">What existing tools get right — and miss</h2>
+          <p class="cs-body-text">Existing financial apps in India — Walnut, CRED, Money Manager, ET Money, and Mint — were analyzed across expense tracking, EMI visibility, budgeting, and financial insights.</p>
+          <div class="card-grid">
+            <div class="card"><div class="card-num">What works</div><div class="card-title">Automatic expense tracking</div><div class="card-body">Apps like Walnut detect expenses from SMS alerts — widely used in India where users do not connect bank accounts directly.</div></div>
+            <div class="card"><div class="card-num">What works</div><div class="card-title">Credit card management</div><div class="card-body">CRED handles bill reminders, rewards, and payment tracking across multiple credit cards effectively.</div></div>
+            <div class="card"><div class="card-num">Gap 01</div><div class="card-title">No real EMI visibility</div><div class="card-body">Most apps do not show how phone EMIs, bike loans, education loans, and credit card EMIs combine to affect actual monthly savings.</div></div>
+            <div class="card dark"><div class="card-num">Core gap</div><div class="card-title">Past-focused, not future-focused</div><div class="card-body">Every major app tracks what already happened. None help users understand what will happen if they take on a new financial commitment.</div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="survey">
+          <span class="cs-section-label">Quantitative Research · 70 Survey Responses</span>
+          <h2 class="cs-section-title">The numbers that confirmed the problem</h2>
+          <div class="stats-grid">
+            <div class="stat-card"><div class="stat-num">76%</div><div class="stat-desc">have at least one active EMI — 32% have two or more</div></div>
+            <div class="stat-card"><div class="stat-num">48%</div><div class="stat-desc">are not sure about their actual monthly savings</div></div>
+            <div class="stat-card"><div class="stat-num">75%+</div><div class="stat-desc">experience financial stress from EMIs — often or sometimes</div></div>
+            <div class="stat-card"><div class="stat-num">90%</div><div class="stat-desc">said they would definitely or maybe use a tool showing real savings after EMIs</div></div>
+          </div>
+          <p class="cs-body-text" style="margin-top:16px">Only 22% of users clearly know their real savings. The remaining 78% are making financial decisions with incomplete information.</p>
+        </div>
+
+        <div class="cs-section reveal" id="insights">
+          <span class="cs-section-label">Qualitative Research · 30 User Interviews</span>
+          <h2 class="cs-section-title">Four patterns that kept coming up</h2>
+          <div class="insight-list">
+            <div class="insight-card"><div class="insight-n">01</div><div><div class="insight-title">Bank balance does not equal real savings</div><div class="insight-body">Users rely on remaining bank balance to judge financial health rather than calculating savings after EMIs and expenses.</div><div class="insight-quote">"If my account shows ₹20k left, I assume I'm doing okay."</div></div></div>
+            <div class="insight-card"><div class="insight-n">02</div><div><div class="insight-title">EMI decisions are often impulsive</div><div class="insight-body">Participants decide on new EMIs based on current salary or available balance — not long-term affordability. The monthly amount feels manageable in isolation.</div><div class="insight-quote">"If the monthly EMI looks small, I usually just take it."</div></div></div>
+            <div class="insight-card"><div class="insight-n">03</div><div><div class="insight-title">Small UPI transactions are invisible</div><div class="insight-body">Frequent small payments — food delivery, subscriptions, UPI transfers — are nearly impossible to track manually. They accumulate silently and cause end-of-month confusion.</div><div class="insight-quote">"Money disappears through small UPI payments."</div></div></div>
+            <div class="insight-card"><div class="insight-n">04</div><div><div class="insight-title">Tools show the past, not the future</div><div class="insight-body">Most financial apps show spending history. Users want help understanding what happens next — how a new EMI will affect next month, not just what they spent last month.</div></div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="affinity">
+          <span class="cs-section-label">Affinity Mapping</span>
+          <h2 class="cs-section-title">Clustering the data into themes</h2>
+          <div class="card-grid">
+            <div class="card"><div class="card-num">Theme 01</div><div class="card-title">Lack of financial visibility</div><div class="card-body">Users can see transactions but still feel unsure about how much they can safely spend. Bank balance is used as a proxy for financial health.</div></div>
+            <div class="card"><div class="card-num">Theme 02</div><div class="card-title">EMI overload</div><div class="card-body">Multiple EMIs evaluated individually feel affordable. Combined, they consume a disproportionate share of income — often more than half.</div></div>
+            <div class="card"><div class="card-num">Theme 03</div><div class="card-title">Inconsistent tracking</div><div class="card-body">Users start tracking with apps or spreadsheets but stop after a few days. Financial data becomes incomplete and unreliable quickly.</div></div>
+            <div class="card"><div class="card-num">Theme 04</div><div class="card-title">Hidden recurring expenses</div><div class="card-body">Subscriptions and small daily UPI transactions accumulate unnoticed. Users feel like money disappears without a clear cause.</div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="personas">
+          <span class="cs-section-label">User Personas</span>
+          <h2 class="cs-section-title">Three users, three relationships with money</h2>
+          <div class="persona-grid">
+            <div class="persona-card">
+              <div><span class="cs-tag" style="margin-bottom:4px">Persona 01</span><div class="persona-name">Arjun Mehta, 27</div><div class="persona-detail">Software Engineer · ₹70,000/month · Multiple EMIs</div></div>
+              <div><div class="persona-sec">Goals</div><div class="persona-items"><div class="persona-item">Know how much he can safely spend</div><div class="persona-item">Manage EMIs without affecting savings</div></div></div>
+              <div><div class="persona-sec">Needs</div><div class="persona-items"><div class="persona-item">Safe-to-Spend balance</div><div class="persona-item">Debt-to-income visualization</div></div></div>
+            </div>
+            <div class="persona-card dark">
+              <div><span class="cs-tag" style="margin-bottom:4px">Persona 02</span><div class="persona-name">Neha Kapoor, 23</div><div class="persona-detail">Content Creator · ₹40,000/month · Heavy UPI user</div></div>
+              <div><div class="persona-sec">Goals</div><div class="persona-items"><div class="persona-item">Control impulsive spending</div><div class="persona-item">Understand where her money goes</div></div></div>
+              <div><div class="persona-sec">Needs</div><div class="persona-items"><div class="persona-item">Automatic expense categorization</div><div class="persona-item">Alerts when spending exceeds budget</div></div></div>
+            </div>
+            <div class="persona-card">
+              <div><span class="cs-tag" style="margin-bottom:4px">Persona 03</span><div class="persona-name">Rajesh Sharma, 38</div><div class="persona-detail">Marketing Manager · ₹1,20,000/month · Careful planner</div></div>
+              <div><div class="persona-sec">Goals</div><div class="persona-items"><div class="persona-item">Optimize spending and investments</div><div class="persona-item">Maintain long-term financial stability</div></div></div>
+              <div><div class="persona-sec">Needs</div><div class="persona-items"><div class="persona-item">Unified financial dashboard</div><div class="persona-item">Subscription management</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="problem">
+          <span class="cs-section-label">Problem Statement</span>
+          <h2 class="cs-section-title">The core problem, clearly defined</h2>
+          <p class="cs-body-text">Young professionals frequently check their bank balance but this number creates a false sense of financial security — it does not reflect upcoming EMIs, recurring bills, or daily spending patterns.</p>
+          <div class="pull-quote"><p>This gap leads to "EMI Blindness" — users commit to multiple installments without a clear view of their true disposable income or savings.</p></div>
+        </div>
+
+        <div class="cs-section reveal" id="hmw">
+          <span class="cs-section-label">How Might We</span>
+          <h2 class="cs-section-title">Reframing problems as design opportunities</h2>
+          <div class="hmw-list">
+            <div class="hmw-item"><strong>HMW</strong> help users clearly understand their actual savings after paying EMIs and monthly expenses?</div>
+            <div class="hmw-item"><strong>HMW</strong> show users how much money they can safely spend without affecting their financial stability?</div>
+            <div class="hmw-item"><strong>HMW</strong> help users understand the long-term impact of taking new EMIs before committing to them?</div>
+            <div class="hmw-item"><strong>HMW</strong> automatically track small daily transactions like UPI payments and subscriptions?</div>
+            <div class="hmw-item"><strong>HMW</strong> provide a unified view of income, expenses, EMIs, and savings in one dashboard?</div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="ia">
+          <span class="cs-section-label">Information Architecture</span>
+          <h2 class="cs-section-title">Structuring the product around financial clarity</h2>
+          <div class="card-grid cols3">
+            <div class="card dark"><div class="card-num">01 · Dashboard</div><div class="card-title">Financial overview</div><div class="card-body">Total Balance · Safe-to-Spend · EMI Commitments · Monthly Spending · Insights</div></div>
+            <div class="card"><div class="card-num">02 · Expenses</div><div class="card-title">Track spending</div><div class="card-body">Transaction History · Category Breakdown · Spending Trends</div></div>
+            <div class="card"><div class="card-num">03 · EMIs & Loans</div><div class="card-title">Loan commitments</div><div class="card-body">Active EMIs · Debt-to-Income · EMI Payoff Timeline</div></div>
+            <div class="card"><div class="card-num">04 · Subscriptions</div><div class="card-title">Recurring payments</div><div class="card-body">Active Subscriptions · Monthly Cost · Cancel or Manage</div></div>
+            <div class="card"><div class="card-num">05 · Insights</div><div class="card-title">Predictions</div><div class="card-body">Financial Health Score · Spending Analysis · Future Cash Flow</div></div>
+            <div class="card"><div class="card-num">06 · Settings</div><div class="card-title">Account management</div><div class="card-body">Bank Connections · Financial Goals · Notifications</div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="flows">
+          <span class="cs-section-label">User Flows</span>
+          <h2 class="cs-section-title">How users move through the product</h2>
+          <div class="flow-grid">
+            <div class="flow-card"><div class="flow-title">Check financial status</div><div class="flow-sub">Primary flow — understanding real savings</div><div class="flow-steps"><div class="flow-step"><div class="flow-step-n">01</div><div class="flow-step-text">Open app → Login</div></div><div class="flow-step"><div class="flow-step-n">02</div><div class="flow-step-text">Dashboard loads with financial overview</div></div><div class="flow-step"><div class="flow-step-n">03</div><div class="flow-step-text">View Safe-to-Spend balance</div></div><div class="flow-step"><div class="flow-step-n">04</div><div class="flow-step-text">Review EMIs and monthly commitments</div></div></div><div class="flow-outcome">User clearly understands actual savings and spending capacity.</div></div>
+            <div class="flow-card"><div class="flow-title">Evaluate a new EMI</div><div class="flow-sub">Before committing to a loan</div><div class="flow-steps"><div class="flow-step"><div class="flow-step-n">01</div><div class="flow-step-text">Dashboard → EMIs & Loans section</div></div><div class="flow-step"><div class="flow-step-n">02</div><div class="flow-step-text">View active EMIs and debt-to-income ratio</div></div><div class="flow-step"><div class="flow-step-n">03</div><div class="flow-step-text">Tap "Simulate new EMI"</div></div><div class="flow-step"><div class="flow-step-n">04</div><div class="flow-step-text">View updated Safe-to-Spend balance</div></div></div><div class="flow-outcome">User understands whether taking the EMI will affect financial stability.</div></div>
+            <div class="flow-card"><div class="flow-title">Review monthly spending</div><div class="flow-sub">Expense tracking flow</div><div class="flow-steps"><div class="flow-step"><div class="flow-step-n">01</div><div class="flow-step-text">Dashboard → Expenses section</div></div><div class="flow-step"><div class="flow-step-n">02</div><div class="flow-step-text">View transaction list</div></div><div class="flow-step"><div class="flow-step-n">03</div><div class="flow-step-text">View category breakdown</div></div><div class="flow-step"><div class="flow-step-n">04</div><div class="flow-step-text">Analyze monthly spending trends</div></div></div><div class="flow-outcome">User identifies areas where spending can be reduced.</div></div>
+            <div class="flow-card"><div class="flow-title">Manage subscriptions</div><div class="flow-sub">Hidden expense detection</div><div class="flow-steps"><div class="flow-step"><div class="flow-step-n">01</div><div class="flow-step-text">Dashboard → Subscriptions section</div></div><div class="flow-step"><div class="flow-step-n">02</div><div class="flow-step-text">View all active subscriptions</div></div><div class="flow-step"><div class="flow-step-n">03</div><div class="flow-step-text">Check total monthly subscription cost</div></div><div class="flow-step"><div class="flow-step-n">04</div><div class="flow-step-text">Cancel or manage individual subscriptions</div></div></div><div class="flow-outcome">User reduces unnecessary recurring expenses.</div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="hypothesis">
+          <span class="cs-section-label">Product Hypothesis</span>
+          <h2 class="cs-section-title">The bet this product is making</h2>
+          <div class="closing-box">
+            <p>If young professionals are given a financial tool that clearly shows their <strong>actual savings after EMIs, bills, and daily expenses</strong> — along with a Safe-to-Spend balance and a simulator for new EMI impact — they will make better financial decisions and avoid committing to installments that erode their monthly liquidity.</p>
+            <p style="margin-top:12px">This shifts financial tools from <strong>transaction recorders to decision-support systems</strong>. The goal is not to track the past more accurately — it is to help users understand the future before they commit to it.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="page-footer-meta">
+        <div class="tools-row"><span class="tool-pill">Figma</span><span class="tool-pill">FigJam</span><span class="tool-pill">UX Research</span><span class="tool-pill">Usability Testing</span></div>
+        <a href="index.html#work" class="btn-back">← Back to Work</a>
+      </div>
+    </div>
+  </div>
+  <script src="shared.js"></script>
+  <script>
+    const toc=document.querySelectorAll('.toc a[href^="#"]');
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){toc.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{threshold:.35});
+    document.querySelectorAll('.cs-section[id]').forEach(s=>obs.observe(s));
+  </script>
+</body>
+</html>

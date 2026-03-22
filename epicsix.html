@@ -1,380 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EpicSix — Fashion Ecommerce Experience · Sarang N</title>
+  <title>EpicSix � Fashion Ecommerce Experience � Sarang N</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream:      #F7F3EE;
-      --warm:       #EDE5DA;
-      --sand:       #D6C9B6;
-      --terracotta: #C4714A;
-      --clay:       #8C5B3E;
-      --espresso:   #2C1A0E;
-      --text:       #3A2A1E;
-      --muted:      #8A7A6E;
-      --serif:      'DM Serif Display', Georgia, serif;
-      --sans:       'DM Sans', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--sans); background: var(--cream); color: var(--text); overflow-x: hidden; cursor: none; }
-
-    /* Cursor */
-    .cursor { width: 10px; height: 10px; background: var(--terracotta); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; }
-    .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--terracotta); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: transform 0.08s ease, width 0.2s, height 0.2s, opacity 0.2s; opacity: 0.5; }
-
-    /* Nav */
-    nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 28px 60px; z-index: 100; background: rgba(247,243,238,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--warm); }
-    .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--espresso); text-decoration: none; letter-spacing: -0.02em; }
-    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--muted); text-decoration: none; transition: color 0.2s, gap 0.2s; }
-    .nav-back:hover { color: var(--terracotta); gap: 14px; }
-
-    /* Hero */
-    .cs-hero { padding: 140px 60px 80px; background: var(--warm); }
-    .cs-hero-inner { max-width: 900px; margin: 0 auto; }
-    .cs-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 16px; }
-    .cs-hero-title { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--espresso); margin-bottom: 20px; }
-    .cs-hero-sub { font-size: 1.1rem; line-height: 1.75; color: var(--muted); font-weight: 300; max-width: 620px; }
-    .cs-meta-row { display: flex; gap: 40px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--sand); flex-wrap: wrap; }
-    .cs-meta-item { display: flex; flex-direction: column; gap: 4px; }
-    .cs-meta-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-    .cs-meta-val { font-size: 0.9rem; color: var(--espresso); font-weight: 500; }
-
-    /* Cover image */
-    .cs-cover { display: none; }
-
-    /* Content */
-    .cs-content { max-width: 900px; margin: 0 auto; padding: 80px 40px; }
-    .cs-section { margin-bottom: 64px; }
-    .cs-section-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 12px; }
-    .cs-section-title { font-family: var(--serif); font-size: 1.6rem; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 20px; }
-    .cs-body-text { font-size: 1rem; line-height: 1.8; color: var(--text); font-weight: 300; margin-bottom: 16px; }
-    .cs-body-text:last-child { margin-bottom: 0; }
-
-    /* Focus areas */
-    .focus-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
-    .focus-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; background: var(--warm); border-radius: 12px; border-left: 3px solid var(--terracotta); }
-    .focus-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
-    .focus-text { font-size: 0.95rem; line-height: 1.6; color: var(--text); }
-    .focus-text strong { color: var(--espresso); font-weight: 500; }
-
-    /* Decision cards */
-    .decision-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
-    .decision-card { padding: 24px; background: var(--warm); border-radius: 14px; }
-    .decision-num { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 8px; }
-    .decision-title { font-family: var(--serif); font-size: 1.05rem; color: var(--espresso); margin-bottom: 10px; }
-    .decision-body { font-size: 0.92rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
-
-    /* Screens strip */
-    .cs-screens { padding: 48px 40px; background: var(--cream); }
-    .cs-screens-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1200px; margin: 0 auto; }
-    .cs-screens-grid .cs-img-block { border-radius: 12px; border: 1px solid var(--sand); background: #fff; overflow: hidden; }
-    .cs-screens-grid .cs-img-block img { width: 100%; height: auto; display: block; }
-
-    /* Image pair */
-    .cs-image-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
-    .cs-image-single { margin: 32px 0; }
-    .cs-img-block { width: 100%; background: #fff; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--sand); }
-    .cs-img-block img { width: 100%; height: auto; display: block; object-fit: contain; }
-    .cs-img-block.tall { /* no fixed aspect ratio — image determines height */ }
-    .cs-img-caption { font-size: 0.75rem; color: var(--muted); margin-top: 8px; letter-spacing: 0.04em; text-align: center; }
-    .img-placeholder { font-size: 0.75rem; color: var(--muted); }
-
-    /* Learnings */
-    .learnings-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-    .learning-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; line-height: 1.65; color: var(--text); font-weight: 300; }
-    .learning-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--terracotta); flex-shrink: 0; margin-top: 8px; }
-
-    /* If I had more time */
-    .future-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
-    .future-item { padding: 16px 18px; background: var(--espresso); border-radius: 12px; }
-    .future-item-title { font-size: 0.82rem; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
-    .future-item-desc { font-size: 0.8rem; color: var(--sand); line-height: 1.5; font-weight: 300; }
-
-    /* Tools */
-    .tools-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-    .tool-pill { font-size: 0.78rem; letter-spacing: 0.06em; border: 1px solid var(--sand); padding: 7px 16px; border-radius: 100px; color: var(--clay); background: var(--cream); }
-
-    /* Divider */
-    .cs-divider { width: 100%; height: 1px; background: var(--sand); margin: 0 0 64px; }
-
-    /* Back CTA */
-    .cs-back-cta { text-align: center; padding: 60px; background: var(--warm); }
-    .cs-back-cta p { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
-    .btn-back { display: inline-flex; align-items: center; gap: 8px; background: var(--espresso); color: var(--cream); padding: 14px 32px; border-radius: 100px; font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.04em; transition: background 0.2s, transform 0.2s; }
-    .btn-back:hover { background: var(--terracotta); transform: translateY(-2px); }
-
-    /* Reveal */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 900px) {
-      nav { padding: 24px 30px; }
-      .cs-hero { padding: 120px 30px 60px; }
-      .cs-screens { padding: 32px 20px; }
-      .cs-screens-grid { grid-template-columns: 1fr; }
-      .cs-content { padding: 60px 24px; }
-      .cs-image-pair { grid-template-columns: 1fr; }
-      .future-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
-      .cs-meta-row { gap: 24px; }
-    }
-  </style>
+  <link rel="stylesheet" href="shared.css"/>
 </head>
 <body>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
-
-  <nav>
-    <a class="nav-logo" href="index.html">Sarang.</a>
-    <a class="nav-back" href="index.html#otherworks">← Back to Projects</a>
+  <nav class="cs-nav">
+    <a class="cs-nav-logo" href="index.html">Sarang.</a>
+    <a class="cs-nav-back" href="index.html#work">? Back to Work</a>
   </nav>
-
-  <!-- HERO -->
   <div class="cs-hero">
-    <div class="cs-hero-inner">
-      <div class="cs-label">UI Exploration · Fashion Ecommerce</div>
-      <h1 class="cs-hero-title">EpicSix — Fashion<br>Ecommerce Experience</h1>
-      <p class="cs-hero-sub">Designed a clean, conversion-focused shopping experience for a modern apparel brand, optimizing product discovery, visual storytelling, and purchase flow.</p>
-      <div class="cs-meta-row">
-        <div class="cs-meta-item">
-          <span class="cs-meta-label">Type</span>
-          <span class="cs-meta-val">Self-initiated UI Exploration</span>
+    <span class="cs-tag">UI Exploration � Fashion Ecommerce</span>
+    <h1 class="cs-hero-title">EpicSix � Fashion Ecommerce Experience</h1>
+    <p class="cs-hero-sub">A conversion-focused shopping experience that optimises product discovery, visual storytelling, and the purchase flow for a fashion brand.</p>
+    <div class="cs-meta-row">
+      <div class="cs-meta-item"><span class="cs-meta-label">Type</span><span class="cs-meta-val">UI Exploration</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Focus</span><span class="cs-meta-val">Ecommerce � Product Discovery</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Tools</span><span class="cs-meta-val">Figma � UI Design</span></div>
+    </div>
+  </div>
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-label">On this page</div>
+      <a href="#context">Context</a>
+      <a href="#focus">Focus Areas</a>
+      <a href="#browse">Browse Experience</a>
+      <a href="#decisions">Design Decisions</a>
+      <a href="#learnings">Learnings</a>
+      <a href="#next">Next Steps</a>
+      <div class="toc-spacer"></div>
+      <a href="index.html#work" class="toc-back">? Back to Work</a>
+    </aside>
+    <div class="cs-body">
+      <div class="cs-screens">
+        <div class="cs-img-grid reveal">
+          <div class="cs-img-block"><img src="epicsix home.png" alt="EpicSix homepage"/></div>
+          <div class="cs-img-block"><img src="epicsix product.png" alt="EpicSix product page"/></div>
         </div>
-        <div class="cs-meta-item">
-          <span class="cs-meta-label">Focus</span>
-          <span class="cs-meta-val">Ecommerce UX · Conversion Design</span>
+        <p class="cs-img-caption">Homepage (left) � Product detail page (right)</p>
+      </div>
+      <div class="cs-content">
+
+        <div class="cs-section reveal" id="context">
+          <span class="cs-section-label">Context</span>
+          <h2 class="cs-section-title">Designing for a fashion-forward audience</h2>
+          <p class="cs-body-text">EpicSix is a fashion ecommerce UI exploration focused on creating a premium, conversion-optimised shopping experience. The challenge was to balance strong visual identity with clear product communication and a frictionless purchase flow.</p>
         </div>
-        <div class="cs-meta-item">
-          <span class="cs-meta-label">Tools</span>
-          <span class="cs-meta-val">Figma · Component Systems</span>
+
+        <div class="cs-section reveal" id="focus">
+          <span class="cs-section-label">Focus Areas</span>
+          <h2 class="cs-section-title">Three things this design had to nail</h2>
+          <div class="focus-list">
+            <div class="focus-item"><span class="focus-icon">???</span><div class="focus-text"><strong>Product discovery</strong> � helping users find what they want quickly through clear navigation and visual hierarchy.</div></div>
+            <div class="focus-item"><span class="focus-icon">??</span><div class="focus-text"><strong>Visual storytelling</strong> � using imagery and layout to communicate brand identity and product quality.</div></div>
+            <div class="focus-item"><span class="focus-icon">?</span><div class="focus-text"><strong>Conversion flow</strong> � reducing friction from product view to add-to-cart to checkout.</div></div>
+          </div>
         </div>
+
+        <div class="cs-section reveal" id="browse">
+          <span class="cs-section-label">Browse Experience</span>
+          <h2 class="cs-section-title">Making product discovery feel effortless</h2>
+          <p class="cs-body-text">The homepage leads with a strong hero that communicates the brand's aesthetic immediately. Product listings use a clean grid with hover states that reveal key details without cluttering the initial view.</p>
+          <div class="dot-list">
+            <div class="dot-item"><div class="dot"></div><span>Sticky navigation with category filters keeps browsing context clear at all times.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Product cards show price, name, and a quick-add option on hover � reducing clicks to purchase.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Editorial sections break up the grid and reinforce brand storytelling between product rows.</span></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="decisions">
+          <span class="cs-section-label">Key Design Decisions</span>
+          <h2 class="cs-section-title">Where the thinking shows</h2>
+          <div class="insight-list">
+            <div class="insight-card"><div class="insight-n">01</div><div><div class="insight-title">Full-bleed hero with minimal text</div><div class="insight-body">The hero communicates brand identity through imagery first. Text is kept minimal � a tagline and a single CTA � to avoid competing with the visual.</div></div></div>
+            <div class="insight-card"><div class="insight-n">02</div><div><div class="insight-title">Consistent product card anatomy</div><div class="insight-body">Every card follows the same structure: image, name, price, colour options. Consistency reduces cognitive load and speeds up browsing decisions.</div></div></div>
+            <div class="insight-card"><div class="insight-n">03</div><div><div class="insight-title">Product page built for confidence</div><div class="insight-body">Large imagery, size guide, material details, and reviews are all above the fold. Users have everything they need to decide without scrolling.</div></div></div>
+            <div class="insight-card"><div class="insight-n">04</div><div><div class="insight-title">Sticky add-to-cart on product page</div><div class="insight-body">The CTA follows the user as they scroll through product details � removing the need to scroll back up to purchase.</div></div></div>
+            <div class="insight-card"><div class="insight-n">05</div><div><div class="insight-title">Related products placed post-decision</div><div class="insight-body">Cross-sell recommendations appear after the add-to-cart section, not before � so they do not distract from the primary conversion action.</div></div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="learnings">
+          <span class="cs-section-label">Learnings</span>
+          <h2 class="cs-section-title">What this project taught me</h2>
+          <div class="dot-list">
+            <div class="dot-item"><div class="dot"></div><span>In fashion ecommerce, the image is the product. Every layout decision should serve the photography, not compete with it.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Conversion and aesthetics are not opposites � the best ecommerce design achieves both by being clear and beautiful simultaneously.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Micro-decisions like hover states and sticky CTAs have an outsized impact on how effortless the purchase flow feels.</span></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="next">
+          <span class="cs-section-label">If I Had More Time</span>
+          <h2 class="cs-section-title">What I would explore next</h2>
+          <div class="card-grid">
+            <div class="card dark"><div class="card-title">Checkout flow</div><div class="card-body">Design the full checkout experience � cart, address, payment, and confirmation screens.</div></div>
+            <div class="card dark"><div class="card-title">Mobile-first redesign</div><div class="card-body">Rethink the layout specifically for mobile, where most fashion browsing happens.</div></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="page-footer-meta">
+        <div class="tools-row"><span class="tool-pill">Figma</span><span class="tool-pill">UI Design</span><span class="tool-pill">Ecommerce Patterns</span></div>
+        <a href="index.html#work" class="btn-back">? Back to Work</a>
       </div>
     </div>
   </div>
-
-  <!-- SCREENS -->
-  <div class="cs-screens">
-    <div class="cs-screens-grid">
-      <div>
-        <div class="cs-img-block">
-          <img src="epicsix home.png" alt="EpicSix product listing page" />
-        </div>
-        <p class="cs-img-caption" style="margin-top:10px;">Browse — product grid with filters</p>
-      </div>
-      <div>
-        <div class="cs-img-block">
-          <img src="epicsix product.png" alt="EpicSix product detail page" />
-        </div>
-        <p class="cs-img-caption" style="margin-top:10px;">Product detail page</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="cs-content">
-
-    <div class="cs-divider"></div>
-
-    <!-- CONTEXT -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Context</div>
-      <h2 class="cs-section-title">A self-initiated UI exploration</h2>
-      <p class="cs-body-text">This project focused on improving how users browse, evaluate, and purchase fashion products online. The goal was to balance aesthetic appeal with fast decision-making — a tension that's central to fashion ecommerce.</p>
-      <p class="cs-body-text">EpicSix is a modern apparel brand with strong visual identity. The design challenge was to let the products speak while keeping the experience frictionless from discovery to checkout.</p>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- WHAT I FOCUSED ON -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Focus Areas</div>
-      <h2 class="cs-section-title">Three things that mattered most</h2>
-      <div class="focus-list">
-        <div class="focus-item">
-          <span class="focus-icon">🔍</span>
-          <div class="focus-text"><strong>Product discovery</strong> — fast scanning and filtering so users find what they want without friction.</div>
-        </div>
-        <div class="focus-item">
-          <span class="focus-icon">🎯</span>
-          <div class="focus-text"><strong>Decision clarity</strong> — visual hierarchy and product information that builds confidence, not confusion.</div>
-        </div>
-        <div class="focus-item">
-          <span class="focus-icon">🛒</span>
-          <div class="focus-text"><strong>Conversion flow</strong> — reducing every unnecessary step between intent and purchase.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- BROWSE PAGE IMAGES -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Browse Experience</div>
-      <h2 class="cs-section-title">Designed for fast scanning</h2>
-      <p class="cs-body-text">The product listing page uses a clean, evenly spaced grid so users can compare options at a glance. Neutral backgrounds keep attention on the product visuals, and persistent left-side filters let users refine results without losing their browsing context.</p>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- KEY DESIGN DECISIONS -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Key Design Decisions</div>
-      <h2 class="cs-section-title">Where the thinking shows</h2>
-      <div class="decision-grid">
-        <div class="decision-card">
-          <div class="decision-num">01 — Discovery</div>
-          <div class="decision-title">Grid designed for fast scanning</div>
-          <div class="decision-body">Products are displayed in a clean, evenly spaced grid to help users compare options quickly without cognitive overload.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">02 — Focus</div>
-          <div class="decision-title">Minimal distractions, strong product focus</div>
-          <div class="decision-body">Neutral backgrounds and consistent card layouts ensure attention stays on the product visuals — not the UI chrome.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">03 — Control</div>
-          <div class="decision-title">Left-side filtering for persistent control</div>
-          <div class="decision-body">Persistent filters allow users to refine results without losing browsing context — no page reloads, no lost scroll position.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">04 — Interaction</div>
-          <div class="decision-title">Lightweight interaction layer</div>
-          <div class="decision-body">Wishlist and quick-add actions are accessible directly from the grid without opening product pages, reducing friction for high-intent users.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">05 — Conversion</div>
-          <div class="decision-title">Clear purchase hierarchy on product pages</div>
-          <div class="decision-body">Primary actions (Add to Cart / Buy Now) are visually dominant on the product page, making the next step obvious and reducing hesitation.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- PRODUCT PAGE -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Product Page</div>
-      <h2 class="cs-section-title">Designed for quick, confident decisions</h2>
-      <p class="cs-body-text">The product page is built around one goal: helping users decide fast without feeling rushed. Every element earns its place.</p>
-      <div class="focus-list" style="margin-top: 24px;">
-        <div class="focus-item">
-          <span class="focus-icon">🖼️</span>
-          <div class="focus-text"><strong>Large imagery builds trust</strong> — multiple angles give users confidence before committing.</div>
-        </div>
-        <div class="focus-item">
-          <span class="focus-icon">📐</span>
-          <div class="focus-text"><strong>Size selection is frictionless</strong> — clear size chips with no dropdowns or extra steps.</div>
-        </div>
-        <div class="focus-item">
-          <span class="focus-icon">📋</span>
-          <div class="focus-text"><strong>Key information is scannable</strong> — price, fit, and material are visible without scrolling.</div>
-        </div>
-        <div class="focus-item">
-          <span class="focus-icon">📦</span>
-          <div class="focus-text"><strong>Supporting details are available but not intrusive</strong> — full description is present for those who want it, but doesn't block the purchase path.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- WHAT I LEARNED -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Learnings</div>
-      <h2 class="cs-section-title">What this project taught me</h2>
-      <div class="learnings-list">
-        <div class="learning-item">
-          <div class="learning-dot"></div>
-          <span>Visual hierarchy directly impacts conversion — where the eye goes first determines what action gets taken.</span>
-        </div>
-        <div class="learning-item">
-          <div class="learning-dot"></div>
-          <span>Reducing decision friction in ecommerce is more valuable than adding features. Every extra step is a drop-off risk.</span>
-        </div>
-        <div class="learning-item">
-          <div class="learning-dot"></div>
-          <span>Clarity beats creativity in high-intent flows. When someone wants to buy, the design should get out of the way.</span>
-        </div>
-        <div class="learning-item">
-          <div class="learning-dot"></div>
-          <span>Persistent filters are underrated — they give users a sense of control that keeps them browsing longer.</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- IF I HAD MORE TIME -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">If I had more time</div>
-      <h2 class="cs-section-title">What I'd explore next</h2>
-      <div class="future-grid">
-        <div class="future-item">
-          <div class="future-item-title">Personalization layer</div>
-          <div class="future-item-desc">Recently viewed items and smart recommendations based on browsing behaviour.</div>
-        </div>
-        <div class="future-item">
-          <div class="future-item-title">Mobile-first experience</div>
-          <div class="future-item-desc">Redesign the browse and PDP flows specifically for thumb-zone navigation on mobile.</div>
-        </div>
-        <div class="future-item">
-          <div class="future-item-title">Micro-interactions</div>
-          <div class="future-item-desc">Add to cart animations, wishlist feedback, and size selection states to increase engagement.</div>
-        </div>
-        <div class="future-item">
-          <div class="future-item-title">Size confidence tools</div>
-          <div class="future-item-desc">A fit guide or size recommender to reduce returns and increase purchase confidence.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- TOOLS -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Tools Used</div>
-      <div class="tools-row">
-        <span class="tool-pill">Figma</span>
-        <span class="tool-pill">UI Design</span>
-        <span class="tool-pill">Component Systems</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- BACK CTA -->
-  <div class="cs-back-cta">
-    <p>Want to see more work?</p>
-    <a href="index.html#otherworks" class="btn-back">← Back to Projects</a>
-  </div>
-
+  <script src="shared.js"></script>
   <script>
-    // Cursor
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`; });
-    function animateRing() { rx += (mx - rx - 18) * 0.12; ry += (my - ry - 18) * 0.12; ring.style.transform = `translate(${rx}px, ${ry}px)`; requestAnimationFrame(animateRing); }
-    animateRing();
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => { ring.style.width = '56px'; ring.style.height = '56px'; ring.style.opacity = '0.3'; });
-      el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.5'; });
-    });
-
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    reveals.forEach(el => observer.observe(el));
+    const toc=document.querySelectorAll('.toc a[href^="#"]');
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){toc.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{threshold:.35});
+    document.querySelectorAll('.cs-section[id]').forEach(s=>obs.observe(s));
   </script>
 </body>
 </html>

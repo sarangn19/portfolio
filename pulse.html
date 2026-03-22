@@ -1,301 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pulse — Creative Agency Website · Sarang N</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --cream: #F7F3EE; --warm: #EDE5DA; --sand: #D6C9B6;
-      --terracotta: #C4714A; --clay: #8C5B3E; --espresso: #2C1A0E;
-      --text: #3A2A1E; --muted: #8A7A6E;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', sans-serif;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--sans); background: var(--cream); color: var(--text); overflow-x: hidden; cursor: none; }
-
-    .cursor { width: 10px; height: 10px; background: var(--terracotta); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; }
-    .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--terracotta); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: transform 0.08s ease, width 0.2s, height 0.2s, opacity 0.2s; opacity: 0.5; }
-
-    nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 28px 60px; z-index: 100; background: rgba(247,243,238,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--warm); }
-    .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--espresso); text-decoration: none; letter-spacing: -0.02em; }
-    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--muted); text-decoration: none; transition: color 0.2s, gap 0.2s; }
-    .nav-back:hover { color: var(--terracotta); gap: 14px; }
-
-    .cs-hero { padding: 140px 60px 80px; background: var(--warm); }
-    .cs-hero-inner { max-width: 900px; margin: 0 auto; }
-    .cs-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 16px; }
-    .cs-hero-title { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--espresso); margin-bottom: 20px; }
-    .cs-hero-sub { font-size: 1.1rem; line-height: 1.75; color: var(--muted); font-weight: 300; max-width: 620px; }
-    .cs-meta-row { display: flex; gap: 40px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--sand); flex-wrap: wrap; }
-    .cs-meta-item { display: flex; flex-direction: column; gap: 4px; }
-    .cs-meta-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-    .cs-meta-val { font-size: 0.9rem; color: var(--espresso); font-weight: 500; }
-
-    .cs-screens { padding: 48px 40px; background: var(--cream); }
-    .cs-screens-inner { max-width: 1200px; margin: 0 auto; }
-    .cs-screens-inner .cs-img-block { border-radius: 12px; border: 1px solid var(--sand); background: #fff; overflow: hidden; }
-    .cs-screens-inner .cs-img-block img { width: 100%; height: auto; display: block; }
-    .cs-img-caption { font-size: 0.75rem; color: var(--muted); margin-top: 10px; letter-spacing: 0.04em; text-align: center; }
-
-    .cs-content { max-width: 900px; margin: 0 auto; padding: 80px 40px; }
-    .cs-section { margin-bottom: 64px; }
-    .cs-section-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 12px; }
-    .cs-section-title { font-family: var(--serif); font-size: 1.6rem; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 20px; }
-    .cs-body-text { font-size: 1rem; line-height: 1.8; color: var(--text); font-weight: 300; margin-bottom: 16px; }
-
-    .focus-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
-    .focus-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; background: var(--warm); border-radius: 12px; border-left: 3px solid var(--terracotta); }
-    .focus-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
-    .focus-text { font-size: 0.95rem; line-height: 1.6; color: var(--text); }
-    .focus-text strong { color: var(--espresso); font-weight: 500; }
-
-    .decision-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
-    .decision-card { padding: 24px; background: var(--warm); border-radius: 14px; }
-    .decision-num { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 8px; }
-    .decision-title { font-family: var(--serif); font-size: 1.05rem; color: var(--espresso); margin-bottom: 10px; }
-    .decision-body { font-size: 0.92rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
-
-    .ui-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-    .ui-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; line-height: 1.65; color: var(--text); font-weight: 300; }
-    .ui-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--terracotta); flex-shrink: 0; margin-top: 8px; }
-
-    .future-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 8px; }
-    .future-item { padding: 16px 18px; background: var(--espresso); border-radius: 12px; }
-    .future-item-title { font-size: 0.82rem; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
-    .future-item-desc { font-size: 0.8rem; color: var(--sand); line-height: 1.5; font-weight: 300; }
-
-    .tools-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-    .tool-pill { font-size: 0.78rem; letter-spacing: 0.06em; border: 1px solid var(--sand); padding: 7px 16px; border-radius: 100px; color: var(--clay); background: var(--cream); }
-
-    .cs-divider { width: 100%; height: 1px; background: var(--sand); margin: 0 0 64px; }
-
-    .cs-back-cta { text-align: center; padding: 60px; background: var(--warm); }
-    .cs-back-cta p { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
-    .btn-back { display: inline-flex; align-items: center; gap: 8px; background: var(--espresso); color: var(--cream); padding: 14px 32px; border-radius: 100px; font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.04em; transition: background 0.2s, transform 0.2s; }
-    .btn-back:hover { background: var(--terracotta); transform: translateY(-2px); }
-
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 900px) {
-      nav { padding: 24px 30px; }
-      .cs-hero { padding: 120px 30px 60px; }
-      .cs-screens { padding: 32px 20px; }
-      .cs-content { padding: 60px 24px; }
-      .future-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="shared.css"/>
 </head>
 <body>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
-
-  <nav>
-    <a class="nav-logo" href="index.html">Sarang.</a>
-    <a class="nav-back" href="index.html#otherworks">← Back to Projects</a>
+  <nav class="cs-nav">
+    <a class="cs-nav-logo" href="index.html">Sarang.</a>
+    <a class="cs-nav-back" href="index.html#work">← Back to Work</a>
   </nav>
-
-  <!-- HERO -->
   <div class="cs-hero">
-    <div class="cs-hero-inner">
-      <div class="cs-label">UI Exploration · Agency Website</div>
-      <h1 class="cs-hero-title">Pulse — Creative Agency Website</h1>
-      <p class="cs-hero-sub">Designed a modern agency website focused on building trust, communicating value clearly, and converting visitors into inquiries.</p>
-      <div class="cs-meta-row">
-        <div class="cs-meta-item">
-          <span class="cs-meta-label">Type</span>
-          <span class="cs-meta-val">UI Exploration</span>
+    <span class="cs-tag">UI Exploration · Agency Website</span>
+    <h1 class="cs-hero-title">Pulse — Creative Agency Website</h1>
+    <p class="cs-hero-sub">Designed a modern agency website focused on building trust, communicating value clearly, and converting visitors into inquiries.</p>
+    <div class="cs-meta-row">
+      <div class="cs-meta-item"><span class="cs-meta-label">Type</span><span class="cs-meta-val">UI Exploration</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Focus</span><span class="cs-meta-val">Landing Page · Conversion Design</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Tools</span><span class="cs-meta-val">Figma · Layout Systems</span></div>
+    </div>
+  </div>
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-label">On this page</div>
+      <a href="#context">Context</a>
+      <a href="#core-focus">Core Focus</a>
+      <a href="#decisions">Design Decisions</a>
+      <a href="#visual">Visual Thinking</a>
+      <a href="#learnings">Learnings</a>
+      <a href="#next">Next Steps</a>
+      <div class="toc-spacer"></div>
+      <a href="index.html#work" class="toc-back">← Back to Work</a>
+    </aside>
+    <div class="cs-body">
+      <div class="cs-screens">
+        <div class="cs-img-block reveal">
+          <img src="Pulse.png" alt="Pulse creative agency website design"/>
         </div>
-        <div class="cs-meta-item">
-          <span class="cs-meta-label">Focus</span>
-          <span class="cs-meta-val">Landing Page · Conversion Design</span>
+        <p class="cs-img-caption">Pulse — full page layout</p>
+      </div>
+      <div class="cs-content">
+
+        <div class="cs-section reveal" id="context">
+          <span class="cs-section-label">Context</span>
+          <h2 class="cs-section-title">A UI exploration for a creative agency</h2>
+          <p class="cs-body-text">This project was aimed at designing a clean, high-conversion website for a creative agency. The goal was to balance visual appeal with clarity — ensuring users quickly understand what the agency does and feel confident reaching out.</p>
         </div>
-        <div class="cs-meta-item">
-          <span class="cs-meta-label">Tools</span>
-          <span class="cs-meta-val">Figma · Layout Systems</span>
+
+        <div class="cs-section reveal" id="core-focus">
+          <span class="cs-section-label">Core Focus</span>
+          <h2 class="cs-section-title">Three goals driving every decision</h2>
+          <div class="focus-list">
+            <div class="focus-item"><span class="focus-icon">⚡</span><div class="focus-text"><strong>Instant clarity</strong> — what the agency does, communicated within seconds of landing.</div></div>
+            <div class="focus-item"><span class="focus-icon">🤝</span><div class="focus-text"><strong>Trust building</strong> — through work samples, client logos, and testimonials placed strategically.</div></div>
+            <div class="focus-item"><span class="focus-icon">📩</span><div class="focus-text"><strong>Lead conversion</strong> — clear, accessible contact points that appear after trust is established.</div></div>
+          </div>
         </div>
+
+        <div class="cs-section reveal" id="decisions">
+          <span class="cs-section-label">Key Design Decisions</span>
+          <h2 class="cs-section-title">Where the thinking shows</h2>
+          <div class="insight-list">
+            <div class="insight-card"><div class="insight-n">01</div><div><div class="insight-title">Strong, benefit-driven headline</div><div class="insight-body">"Less Ordinary. More Wow." — bold and memorable, paired with a visual that communicates creativity instantly.</div></div></div>
+            <div class="insight-card"><div class="insight-n">02</div><div><div class="insight-title">Structured storytelling from top to bottom</div><div class="insight-body">Who we are → What we do → Proof → People → Clients → Testimonials → Contact. This reduces cognitive load and builds trust progressively.</div></div></div>
+            <div class="insight-card"><div class="insight-n">03</div><div><div class="insight-title">Modular, scannable service cards</div><div class="insight-body">Services are broken into clear blocks so users understand offerings at a glance — no long paragraphs to wade through.</div></div></div>
+            <div class="insight-card"><div class="insight-n">04</div><div><div class="insight-title">Work showcase for instant proof</div><div class="insight-body">Visual project previews let users evaluate the agency's capability and style quickly, before reading a single word.</div></div></div>
+            <div class="insight-card"><div class="insight-n">05</div><div><div class="insight-title">Humanizing the brand</div><div class="insight-body">A founder section adds relatability and personality, making the agency feel approachable rather than corporate.</div></div></div>
+            <div class="insight-card"><div class="insight-n">06</div><div><div class="insight-title">Social proof before the CTA</div><div class="insight-body">Clients and testimonials placed just before the contact section — reinforcing credibility at the moment of decision.</div></div></div>
+            <div class="insight-card"><div class="insight-n">07</div><div><div class="insight-title">Low-friction contact form</div><div class="insight-body">Simple, minimal form placed after trust is fully established — increasing the likelihood that visitors actually reach out.</div></div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="visual">
+          <span class="cs-section-label">Visual &amp; UI Thinking</span>
+          <h2 class="cs-section-title">Design choices that support the goals</h2>
+          <div class="dot-list">
+            <div class="dot-item"><div class="dot"></div><span>Clean layout with generous spacing to improve readability and reduce visual noise.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Limited colour palette to maintain brand consistency throughout the page.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Subtle gradients used sparingly for a modern, polished feel.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Clear typography hierarchy so users can scan and find what they need fast.</span></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="learnings">
+          <span class="cs-section-label">Learnings</span>
+          <h2 class="cs-section-title">What this project taught me</h2>
+          <div class="dot-list">
+            <div class="dot-item"><div class="dot"></div><span>Content flow is everything on landing pages — the order of sections directly affects how much trust a visitor builds.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Trust is built through multiple small signals, not one big statement. Each section adds a layer.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Clarity and structure outperform visual complexity every time in high-conversion design.</span></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="next">
+          <span class="cs-section-label">If I Had More Time</span>
+          <h2 class="cs-section-title">What I would explore next</h2>
+          <div class="card-grid cols3">
+            <div class="card dark"><div class="card-title">Motion interactions</div><div class="card-body">Scroll-triggered animations to enhance storytelling and guide attention.</div></div>
+            <div class="card dark"><div class="card-title">Mobile responsiveness</div><div class="card-body">Redesign interaction patterns specifically for mobile-first browsing.</div></div>
+            <div class="card dark"><div class="card-title">Case study deep-dives</div><div class="card-body">Expand each project preview into a full case study page.</div></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="page-footer-meta">
+        <div class="tools-row"><span class="tool-pill">Figma</span><span class="tool-pill">UI Design</span><span class="tool-pill">Layout Systems</span></div>
+        <a href="index.html#work" class="btn-back">← Back to Work</a>
       </div>
     </div>
   </div>
-
-  <!-- SCREEN -->
-  <div class="cs-screens">
-    <div class="cs-screens-inner">
-      <div class="cs-img-block">
-        <img src="Pulse.png" alt="Pulse creative agency website design" />
-      </div>
-      <p class="cs-img-caption">Pulse — full page layout</p>
-    </div>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="cs-content">
-
-    <div class="cs-divider"></div>
-
-    <!-- CONTEXT -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Context</div>
-      <h2 class="cs-section-title">A UI exploration for a creative agency</h2>
-      <p class="cs-body-text">This project was aimed at designing a clean, high-conversion website for a creative agency. The goal was to balance visual appeal with clarity — ensuring users quickly understand what the agency does and feel confident reaching out.</p>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- CORE FOCUS -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Core Focus</div>
-      <h2 class="cs-section-title">Three goals driving every decision</h2>
-      <div class="focus-list">
-        <div class="focus-item">
-          <span class="focus-icon">⚡</span>
-          <div class="focus-text"><strong>Instant clarity</strong> — what the agency does, communicated within seconds of landing.</div>
-        </div>
-        <div class="focus-item">
-          <span class="focus-icon">🤝</span>
-          <div class="focus-text"><strong>Trust building</strong> — through work samples, client logos, and testimonials placed strategically.</div>
-        </div>
-        <div class="focus-item">
-          <span class="focus-icon">📩</span>
-          <div class="focus-text"><strong>Lead conversion</strong> — clear, accessible contact points that appear after trust is established.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- KEY DESIGN DECISIONS -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Key Design Decisions</div>
-      <h2 class="cs-section-title">Where the thinking shows</h2>
-      <div class="decision-grid">
-        <div class="decision-card">
-          <div class="decision-num">01 — Hero</div>
-          <div class="decision-title">Strong, benefit-driven headline</div>
-          <div class="decision-body">"Less Ordinary. More Wow." — bold and memorable, paired with a visual that communicates creativity instantly.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">02 — Flow</div>
-          <div class="decision-title">Structured storytelling from top to bottom</div>
-          <div class="decision-body">Who we are → What we do → Proof → People → Clients → Testimonials → Contact. This reduces cognitive load and builds trust progressively.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">03 — Services</div>
-          <div class="decision-title">Modular, scannable service cards</div>
-          <div class="decision-body">Services are broken into clear blocks so users understand offerings at a glance — no long paragraphs to wade through.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">04 — Credibility</div>
-          <div class="decision-title">Work showcase for instant proof</div>
-          <div class="decision-body">Visual project previews let users evaluate the agency's capability and style quickly, before reading a single word.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">05 — Personality</div>
-          <div class="decision-title">Humanizing the brand</div>
-          <div class="decision-body">A founder section adds relatability and personality, making the agency feel approachable rather than corporate.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">06 — Social Proof</div>
-          <div class="decision-title">Clients + testimonials before the CTA</div>
-          <div class="decision-body">Social proof is placed strategically just before the contact section — reinforcing credibility at the moment of decision.</div>
-        </div>
-        <div class="decision-card">
-          <div class="decision-num">07 — Conversion</div>
-          <div class="decision-title">Low-friction contact form</div>
-          <div class="decision-body">Simple, minimal form placed after trust is fully established — increasing the likelihood that visitors actually reach out.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- VISUAL THINKING -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Visual & UI Thinking</div>
-      <h2 class="cs-section-title">Design choices that support the goals</h2>
-      <div class="ui-list">
-        <div class="ui-item"><div class="ui-dot"></div><span>Clean layout with generous spacing to improve readability and reduce visual noise.</span></div>
-        <div class="ui-item"><div class="ui-dot"></div><span>Limited colour palette to maintain brand consistency throughout the page.</span></div>
-        <div class="ui-item"><div class="ui-dot"></div><span>Subtle gradients used sparingly for a modern, polished feel.</span></div>
-        <div class="ui-item"><div class="ui-dot"></div><span>Clear typography hierarchy so users can scan and find what they need fast.</span></div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- LEARNINGS -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Learnings</div>
-      <h2 class="cs-section-title">What this project taught me</h2>
-      <div class="ui-list">
-        <div class="ui-item"><div class="ui-dot"></div><span>Content flow is everything on landing pages — the order of sections directly affects how much trust a visitor builds.</span></div>
-        <div class="ui-item"><div class="ui-dot"></div><span>Trust is built through multiple small signals, not one big statement. Each section adds a layer.</span></div>
-        <div class="ui-item"><div class="ui-dot"></div><span>Clarity and structure outperform visual complexity every time in high-conversion design.</span></div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- IF I HAD MORE TIME -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">If I had more time</div>
-      <h2 class="cs-section-title">What I'd explore next</h2>
-      <div class="future-grid">
-        <div class="future-item">
-          <div class="future-item-title">Motion interactions</div>
-          <div class="future-item-desc">Scroll-triggered animations to enhance storytelling and guide attention.</div>
-        </div>
-        <div class="future-item">
-          <div class="future-item-title">Mobile responsiveness</div>
-          <div class="future-item-desc">Redesign interaction patterns specifically for mobile-first browsing.</div>
-        </div>
-        <div class="future-item">
-          <div class="future-item-title">Case study deep-dives</div>
-          <div class="future-item-desc">Expand each project preview into a full case study page.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-divider"></div>
-
-    <!-- TOOLS -->
-    <div class="cs-section reveal">
-      <div class="cs-section-label">Tools Used</div>
-      <div class="tools-row">
-        <span class="tool-pill">Figma</span>
-        <span class="tool-pill">UI Design</span>
-        <span class="tool-pill">Layout Systems</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- BACK CTA -->
-  <div class="cs-back-cta">
-    <p>Want to see more work?</p>
-    <a href="index.html#otherworks" class="btn-back">← Back to Projects</a>
-  </div>
-
+  <script src="shared.js"></script>
   <script>
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate(${mx-5}px,${my-5}px)`; });
-    function animateRing() { rx += (mx-rx-18)*0.12; ry += (my-ry-18)*0.12; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(animateRing); }
-    animateRing();
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => { ring.style.width='56px'; ring.style.height='56px'; ring.style.opacity='0.3'; });
-      el.addEventListener('mouseleave', () => { ring.style.width='36px'; ring.style.height='36px'; ring.style.opacity='0.5'; });
-    });
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    const toc=document.querySelectorAll('.toc a[href^="#"]');
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){toc.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{threshold:.35});
+    document.querySelectorAll('.cs-section[id]').forEach(s=>obs.observe(s));
   </script>
 </body>
 </html>
