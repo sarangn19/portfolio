@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mandala Wear — Story-driven Ecommerce · Sarang N</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #F7F3EE; --warm: #EDE5DA; --sand: #D6C9B6;
+      --terracotta: #C4714A; --clay: #8C5B3E; --espresso: #2C1A0E;
+      --text: #3A2A1E; --muted: #8A7A6E;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--cream); color: var(--text); overflow-x: hidden; cursor: none; }
+
+    .cursor { width: 10px; height: 10px; background: var(--terracotta); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; }
+    .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--terracotta); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: transform 0.08s ease, width 0.2s, height 0.2s, opacity 0.2s; opacity: 0.5; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 28px 60px; z-index: 100; background: rgba(247,243,238,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--warm); }
+    .nav-logo { font-family: var(--serif); font-size: 1.3rem; color: var(--espresso); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--muted); text-decoration: none; transition: color 0.2s, gap 0.2s; }
+    .nav-back:hover { color: var(--terracotta); gap: 14px; }
+
+    .cs-hero { padding: 140px 60px 80px; background: var(--warm); }
+    .cs-hero-inner { max-width: 900px; margin: 0 auto; }
+    .cs-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 16px; }
+    .cs-hero-title { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--espresso); margin-bottom: 20px; }
+    .cs-hero-sub { font-size: 1.1rem; line-height: 1.75; color: var(--muted); font-weight: 300; max-width: 640px; }
+    .cs-meta-row { display: flex; gap: 40px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--sand); flex-wrap: wrap; }
+    .cs-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .cs-meta-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .cs-meta-val { font-size: 0.9rem; color: var(--espresso); font-weight: 500; }
+
+    /* Screen placeholder */
+    .cs-screens { padding: 48px 40px; background: var(--cream); }
+    .cs-screens-inner { max-width: 1200px; margin: 0 auto; }
+    .cs-img-block { border-radius: 12px; border: 1px solid var(--sand); background: var(--sand); overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 200px; }
+    .cs-img-block img { width: 100%; height: auto; display: block; }
+    .cs-img-placeholder { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.06em; padding: 60px; }
+    .cs-img-caption { font-size: 0.75rem; color: var(--muted); margin-top: 10px; letter-spacing: 0.04em; text-align: center; }
+
+    .cs-content { max-width: 900px; margin: 0 auto; padding: 80px 40px; }
+    .cs-section { margin-bottom: 64px; }
+    .cs-section-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 12px; }
+    .cs-section-title { font-family: var(--serif); font-size: 1.6rem; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 20px; }
+    .cs-body-text { font-size: 1rem; line-height: 1.8; color: var(--text); font-weight: 300; margin-bottom: 16px; }
+
+    /* Problem callout */
+    .problem-box { background: var(--espresso); border-radius: 14px; padding: 28px 32px; margin-top: 8px; }
+    .problem-box p { font-size: 1rem; line-height: 1.75; color: var(--sand); font-weight: 300; }
+    .problem-box strong { color: var(--cream); font-weight: 500; }
+
+    /* Solution pills */
+    .solution-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .solution-pill { font-size: 0.82rem; padding: 8px 18px; border-radius: 100px; background: var(--warm); border: 1px solid var(--sand); color: var(--clay); }
+
+    .focus-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+    .focus-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; background: var(--warm); border-radius: 12px; border-left: 3px solid var(--terracotta); }
+    .focus-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .focus-text { font-size: 0.95rem; line-height: 1.6; color: var(--text); }
+    .focus-text strong { color: var(--espresso); font-weight: 500; }
+
+    .decision-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+    .decision-card { padding: 24px; background: var(--warm); border-radius: 14px; }
+    .decision-num { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 8px; }
+    .decision-title { font-family: var(--serif); font-size: 1.05rem; color: var(--espresso); margin-bottom: 10px; }
+    .decision-body { font-size: 0.92rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
+    .decision-body ul { padding-left: 16px; margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+    .decision-body li { font-size: 0.88rem; color: var(--muted); }
+
+    /* UX writing comparison */
+    .ux-writing-box { background: var(--warm); border-radius: 14px; padding: 24px 28px; margin-top: 8px; }
+    .ux-row { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--sand); }
+    .ux-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .ux-bad { font-size: 0.9rem; color: var(--muted); text-decoration: line-through; flex: 1; }
+    .ux-arrow { color: var(--sand); font-size: 1rem; flex-shrink: 0; }
+    .ux-good { font-size: 0.9rem; color: var(--espresso); font-weight: 500; flex: 1; }
+
+    .ui-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+    .ui-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; line-height: 1.65; color: var(--text); font-weight: 300; }
+    .ui-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--terracotta); flex-shrink: 0; margin-top: 8px; }
+
+    .future-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .future-item { padding: 16px 18px; background: var(--espresso); border-radius: 12px; }
+    .future-item-title { font-size: 0.82rem; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
+    .future-item-desc { font-size: 0.8rem; color: var(--sand); line-height: 1.5; font-weight: 300; }
+
+    .tools-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .tool-pill { font-size: 0.78rem; letter-spacing: 0.06em; border: 1px solid var(--sand); padding: 7px 16px; border-radius: 100px; color: var(--clay); background: var(--cream); }
+
+    .cs-divider { width: 100%; height: 1px; background: var(--sand); margin: 0 0 64px; }
+
+    .cs-back-cta { text-align: center; padding: 60px; background: var(--warm); }
+    .cs-back-cta p { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
+    .btn-back { display: inline-flex; align-items: center; gap: 8px; background: var(--espresso); color: var(--cream); padding: 14px 32px; border-radius: 100px; font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.04em; transition: background 0.2s, transform 0.2s; }
+    .btn-back:hover { background: var(--terracotta); transform: translateY(-2px); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 24px 30px; }
+      .cs-hero { padding: 120px 30px 60px; }
+      .cs-screens { padding: 32px 20px; }
+      .cs-content { padding: 60px 24px; }
+      .future-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Sarang.</a>
+    <a class="nav-back" href="index.html#otherworks">← Back to Projects</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="cs-hero">
+    <div class="cs-hero-inner">
+      <div class="cs-label">UI/UX Exploration · Cultural Ecommerce</div>
+      <h1 class="cs-hero-title">Mandala Wear — Story-driven Ecommerce Experience</h1>
+      <p class="cs-hero-sub">Designed an end-to-end ecommerce experience that blends cultural storytelling with modern shopping flows to increase emotional engagement and purchase intent.</p>
+      <div class="cs-meta-row">
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Type</span>
+          <span class="cs-meta-val">UI/UX Exploration</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Focus</span>
+          <span class="cs-meta-val">Ecommerce · Storytelling · Conversion</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Tools</span>
+          <span class="cs-meta-val">Figma · UX Writing · Product Thinking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN -->
+  <div class="cs-screens">
+    <div class="cs-screens-inner">
+      <div class="cs-img-block">
+        <span class="cs-img-placeholder">Mandala Wear screens — add image here</span>
+      </div>
+      <p class="cs-img-caption">Mandala Wear — full experience overview</p>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="cs-content">
+
+    <div class="cs-divider"></div>
+
+    <!-- CONTEXT -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Context</div>
+      <h2 class="cs-section-title">Ecommerce that goes beyond transactions</h2>
+      <p class="cs-body-text">This project explores how ecommerce can integrate culture, storytelling, and scarcity-driven design into the shopping experience. The goal was to make each product feel meaningful — not just purchasable.</p>
+    </div>
+
+    <div class="cs-divider"></div>
+
+    <!-- CORE PROBLEM -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Core Problem</div>
+      <h2 class="cs-section-title">Products that feel interchangeable</h2>
+      <div class="problem-box">
+        <p>Most fashion ecommerce platforms focus on <strong>price and visuals</strong> but fail to create emotional connection — making products feel interchangeable and forgettable.</p>
+      </div>
+    </div>
+
+    <div class="cs-divider"></div>
+
+    <!-- SOLUTION -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Solution Approach</div>
+      <h2 class="cs-section-title">A system built on meaning</h2>
+      <p class="cs-body-text">I designed a system that combines three layers to shift the experience from transactional to emotional.</p>
+      <div class="solution-row">
+        <span class="solution-pill">🎨 Cultural storytelling (Kerala mural art)</span>
+        <span class="solution-pill">🔥 Scarcity & drop mechanics</span>
+        <span class="solution-pill">🛒 Frictionless commerce flows</span>
+      </div>
+    </div>
+
+    <div class="cs-divider"></div>
+
+    <!-- KEY DESIGN THINKING -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Key Design Thinking</div>
+      <h2 class="cs-section-title">Where the real work is</h2>
+      <div class="decision-grid">
+        <div class="decision-card">
+          <div class="decision-num">01 — Narrative</div>
+          <div class="decision-title">Product as a story, not just an item</div>
+          <div class="decision-body">Each product is positioned as a narrative: "More than a T-shirt. A Story." This shifts user perception from buying clothing to owning meaning.</div>
+        </div>
+        <div class="decision-card">
+          <div class="decision-num">02 — Urgency</div>
+          <div class="decision-title">Scarcity-driven behaviour design</div>
+          <div class="decision-body">
+            Urgency cues used without aggressive sales tactics:
+            <ul>
+              <li>"Limited batch"</li>
+              <li>"Only a few left"</li>
+              <li>"Drops every week"</li>
+            </ul>
+          </div>
+        </div>
+        <div class="decision-card">
+          <div class="decision-num">03 — Discovery</div>
+          <div class="decision-title">Smart search & discovery experience</div>
+          <div class="decision-body">Contextual search suggestions (Ganesh, Krishna, Mandala), category shortcuts, and trending indicators reduce effort and speed up product discovery.</div>
+        </div>
+        <div class="decision-card">
+          <div class="decision-num">04 — Cart</div>
+          <div class="decision-title">Low-friction add-to-cart experience</div>
+          <div class="decision-body">Inline size selection before adding, quick "Added to Cart" feedback, and persistent purchase visibility — designed to minimise drop-offs at intent moments.</div>
+        </div>
+        <div class="decision-card">
+          <div class="decision-num">05 — Product Page</div>
+          <div class="decision-title">Confidence-driven product page</div>
+          <div class="decision-body">Answers key user questions fast: fit clarity ("Slightly relaxed fit"), cultural context (story behind the artwork), and social proof (ratings + buyers).</div>
+        </div>
+        <div class="decision-card">
+          <div class="decision-num">06 — Checkout</div>
+          <div class="decision-title">Optimised checkout for Indian users</div>
+          <div class="decision-body">UPI-first payment (GPay, PhonePe, Paytm), Cash on Delivery option, and clear pricing breakdown — built for trust and familiarity in Indian ecommerce behaviour.</div>
+        </div>
+        <div class="decision-card">
+          <div class="decision-num">07 — Flow</div>
+          <div class="decision-title">Guided step-based checkout</div>
+          <div class="decision-body">Cart → Delivery → Payment → Confirmation. A structured flow that reduces confusion and improves completion rates.</div>
+        </div>
+        <div class="decision-card">
+          <div class="decision-num">08 — Post-purchase</div>
+          <div class="decision-title">Experience beyond the transaction</div>
+          <div class="decision-body">Order confirmation with clarity, delivery tracking, and an emotional follow-up — "We'll share the story of this artwork" — extends the brand experience after purchase.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-divider"></div>
+
+    <!-- UX WRITING -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">UX Writing Strategy</div>
+      <h2 class="cs-section-title">Copy that reinforces the brand</h2>
+      <p class="cs-body-text">Instead of generic ecommerce language, every line of copy is designed to feel cultural and narrative-driven.</p>
+      <div class="ux-writing-box">
+        <div class="ux-row">
+          <span class="ux-bad">Get ₹100 off</span>
+          <span class="ux-arrow">→</span>
+          <span class="ux-good">Share art. Earn stories.</span>
+        </div>
+        <div class="ux-row">
+          <span class="ux-bad">Add to cart</span>
+          <span class="ux-arrow">→</span>
+          <span class="ux-good">Own this story</span>
+        </div>
+        <div class="ux-row">
+          <span class="ux-bad">Limited stock</span>
+          <span class="ux-arrow">→</span>
+          <span class="ux-good">Limited batch — drops every week</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-divider"></div>
+
+    <!-- LEARNINGS -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Learnings</div>
+      <h2 class="cs-section-title">What this project taught me</h2>
+      <div class="ui-list">
+        <div class="ui-item"><div class="ui-dot"></div><span>Emotional storytelling can significantly influence purchase intent — people buy meaning, not just products.</span></div>
+        <div class="ui-item"><div class="ui-dot"></div><span>Scarcity works best when it feels authentic, not manipulative. The framing matters as much as the mechanic.</span></div>
+        <div class="ui-item"><div class="ui-dot"></div><span>Small UX writing changes can redefine the entire brand perception at every touchpoint.</span></div>
+      </div>
+    </div>
+
+    <div class="cs-divider"></div>
+
+    <!-- IF I HAD MORE TIME -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">If I had more time</div>
+      <h2 class="cs-section-title">What I'd explore next</h2>
+      <div class="future-grid">
+        <div class="future-item">
+          <div class="future-item-title">Personalisation</div>
+          <div class="future-item-desc">Recommendations based on user preferences and browsing history.</div>
+        </div>
+        <div class="future-item">
+          <div class="future-item-title">Story-based onboarding</div>
+          <div class="future-item-desc">Introduce users to the brand's cultural roots before they start shopping.</div>
+        </div>
+        <div class="future-item">
+          <div class="future-item-title">Community layer</div>
+          <div class="future-item-desc">A space for art lovers to connect around culture and craft.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-divider"></div>
+
+    <!-- TOOLS -->
+    <div class="cs-section reveal">
+      <div class="cs-section-label">Tools Used</div>
+      <div class="tools-row">
+        <span class="tool-pill">Figma</span>
+        <span class="tool-pill">UX Writing</span>
+        <span class="tool-pill">Product Thinking</span>
+        <span class="tool-pill">Interaction Design</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BACK CTA -->
+  <div class="cs-back-cta">
+    <p>Want to see more work?</p>
+    <a href="index.html#otherworks" class="btn-back">← Back to Projects</a>
+  </div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate(${mx-5}px,${my-5}px)`; });
+    function animateRing() { rx += (mx-rx-18)*0.12; ry += (my-ry-18)*0.12; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(animateRing); }
+    animateRing();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width='56px'; ring.style.height='56px'; ring.style.opacity='0.3'; });
+      el.addEventListener('mouseleave', () => { ring.style.width='36px'; ring.style.height='36px'; ring.style.opacity='0.5'; });
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
