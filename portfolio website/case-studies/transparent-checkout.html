@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transparent Checkout &amp; Pricing System · Sarang N</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../shared.css"/>
+  <style>
+    /* ── USER FLOW SHOWCASE ── */
+    .flow-showcase{background:transparent;border:none;border-radius:0;padding:24px 0 8px;margin:24px 0}
+    .flow-showcase-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terracotta);margin-bottom:24px;display:block}
+
+    .uf-row{display:flex;align-items:flex-start;justify-content:center;gap:0;flex-wrap:nowrap}
+    .uf-row-connector{display:flex;justify-content:center;margin:12px 0}
+
+    .uf-step{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0;padding:0 12px}
+    .uf-screen-wrap{position:relative;width:100%;max-width:320px}
+    .uf-screen{width:100%;max-width:320px;border-radius:0;overflow:hidden;box-shadow:none}
+    .uf-screen img{width:100%;height:auto;display:block;border-radius:18px;image-rendering:-webkit-optimize-contrast;filter:contrast(1.05) saturate(1.05)}
+    .uf-step-num{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);margin-bottom:8px}
+    .uf-step-label{font-size:.72rem;color:var(--muted);text-align:center;margin-top:10px;line-height:1.4}
+
+    /* Callout annotations */
+    .callout-list{width:100%;max-width:320px;margin-top:10px;display:flex;flex-direction:column;gap:5px}
+    .callout-item{display:flex;align-items:flex-start;gap:7px;padding:5px 8px;background:rgba(192,98,42,.07);border-left:2px solid var(--terracotta);border-radius:0 4px 4px 0}
+    .callout-dot{width:5px;height:5px;border-radius:50%;background:var(--terracotta);flex-shrink:0;margin-top:5px}
+    .callout-text{font-size:.64rem;line-height:1.4;color:var(--terracotta);font-weight:500}
+
+    .uf-arrow{display:flex;align-items:center;flex-shrink:0;padding:0 2px;margin-bottom:80px}
+    .uf-caption{font-size:.7rem;color:var(--muted);text-align:center;margin-top:20px;letter-spacing:.04em}
+
+    .cs-hero-img-wrap{margin-top:28px;border-radius:12px;overflow:hidden;max-height:320px}
+    .cs-hero-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;object-position:top}
+
+    @media(max-width:700px){
+      .uf-row{flex-wrap:wrap;gap:16px}
+      .uf-arrow{display:none}
+      .uf-row-connector{display:none}
+      .uf-step{width:calc(50% - 12px);flex:none;padding:0 4px}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <nav class="cs-nav">
+    <a class="cs-nav-logo" href="../index.html">Sarang.</a>
+    <a class="cs-nav-back" href="../index.html#work">&#8592; Back to Work</a>
+  </nav>
+  <div class="cs-hero">
+    <span class="cs-tag">Case Study · 01 · Food Delivery · Product Design</span>
+    <h1 class="cs-hero-title">Transparent Checkout &amp; <em>Pricing System</em></h1>
+    <p class="cs-hero-sub">Reducing price shocks and improving trust in food delivery checkout — a UX case study on pricing clarity.</p>
+    <div class="cs-meta-row">
+      <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-val">UI/UX Designer</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Domain</span><span class="cs-meta-val">Food Delivery · Mobile</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Methods</span><span class="cs-meta-val">UX Research · Interaction Design</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Tools</span><span class="cs-meta-val">Figma · FigJam</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Year</span><span class="cs-meta-val">2025</span></div>
+    </div>
+  </div>
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-label">On this page</div>
+      <a href="#overview">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#research">Research</a>
+      <a href="#insights">Insights</a>
+      <a href="#solution">Solution</a>
+      <a href="#design">Design</a>
+      <a href="#outcome">Outcome</a>
+      <div class="toc-spacer"></div>
+      <a href="../index.html#work" class="toc-back">&#8592; Back to Work</a>
+    </aside>
+    <div class="cs-body">
+      <div class="cs-content">
+
+        <div class="cs-section reveal" id="overview">
+          <span class="cs-section-label">Overview</span>
+          <h2 class="cs-section-title">Why does checkout feel like a trap?</h2>
+          <p class="cs-body-text">Many food delivery platforms reveal additional charges only during the final stage of checkout. This creates a mismatch between the user's expected price and the actual payment amount, often leading to frustration, cart abandonment, and reduced trust.</p>
+          <p class="cs-body-text">The goal of this project was to design a checkout system that communicates clear pricing information earlier in the ordering journey — so users always know what they're paying before they reach the payment step.</p>
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-num">Goals</div>
+              <div class="card-body">Reduce price anxiety · Improve clarity of delivery fees and taxes · Build trust through transparent pricing · Help users understand total cost earlier</div>
+            </div>
+            <div class="card dark">
+              <div class="card-num">Expected Outcome</div>
+              <div class="card-body">A checkout experience that allows users to understand how the final price is calculated before they reach the payment stage.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="problem">
+          <span class="cs-section-label">Problem</span>
+          <h2 class="cs-section-title">Users often feel blindsided at checkout</h2>
+          <p class="cs-body-text">Users often encounter unexpected price increases during checkout, due to charges that appear only at the final billing step — such as service fees, delivery surcharges, and taxes added late in the flow.</p>
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-num">Visibility</div>
+              <div class="card-body">Delivery and service fees appearing late in the process · Confusing fee structures with no clear breakdown</div>
+            </div>
+            <div class="card">
+              <div class="card-num">Trust</div>
+              <div class="card-body">Lack of clear explanation for pricing components · Sudden price increases before payment that reduce user confidence</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="research">
+          <span class="cs-section-label">User Research</span>
+          <h2 class="cs-section-title">Understanding how users perceive pricing</h2>
+          <p class="cs-body-text">Secondary research and analysis of existing checkout experiences across multiple platforms. Goal: identify where confusion occurs and how pricing transparency can improve user trust.</p>
+          <div class="card-grid cols3">
+            <div class="card dark"><div class="card-num">UX Pattern Analysis</div><div class="card-body">Pricing patterns used in delivery models across platforms</div></div>
+            <div class="card dark"><div class="card-num">Competitive Analysis</div><div class="card-body">Checkout flows from Swiggy, Zomato, Uber Eats &amp; GrubHub</div></div>
+            <div class="card dark"><div class="card-num">User Interviews</div><div class="card-body">8 participants, ages 20–35, 2–3 orders per week</div></div>
+          </div>
+          <div class="insight-list" style="margin-top:16px">
+            <div class="insight-card"><div class="insight-n">01</div><div><div class="insight-title">Checkout Surprise</div><div class="insight-body">Users often experience a sudden price change during checkout that causes hesitation and erodes trust in the platform.</div></div></div>
+            <div class="insight-card"><div class="insight-n">02</div><div><div class="insight-title">Fee Confusion</div><div class="insight-body">Many users do not understand what service fees or platform fees represent, causing additional anxiety at checkout.</div></div></div>
+            <div class="insight-card"><div class="insight-n">03</div><div><div class="insight-title">Decision Hesitation</div><div class="insight-body">Unexpected price increases reduce the likelihood that users will complete their order, leading to higher cart abandonment rates.</div></div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="insights">
+          <span class="cs-section-label">Insights &amp; Problem Statement</span>
+          <h2 class="cs-section-title">Pricing opacity is a trust killer</h2>
+          <div class="card-grid">
+            <div class="card"><div class="card-num">Insight A</div><div class="card-body">Pricing transparency plays a major role in building user trust throughout the checkout experience</div></div>
+            <div class="card"><div class="card-num">Insight B</div><div class="card-body">Users feel frustrated when prices change suddenly at checkout — even when the final price is still reasonable</div></div>
+            <div class="card"><div class="card-num">Insight C</div><div class="card-body">Clear breakdowns help users understand what they are paying for, building confidence in the platform</div></div>
+            <div class="card"><div class="card-num">Insight D</div><div class="card-body">Early visibility of total cost reduces checkout friction and decreases cart abandonment rates significantly</div></div>
+          </div>
+          <div class="pull-quote" style="margin-top:16px"><p>Food delivery users need a transparent pricing system that clearly communicates the total cost of their order before checkout, because hidden or unexpected fees create confusion and reduce trust in the platform.</p></div>
+        </div>
+
+        <div class="cs-section reveal" id="solution">
+          <span class="cs-section-label">Solution &amp; User Flow</span>
+          <h2 class="cs-section-title">Making every rupee visible, every step of the way</h2>
+          <p class="cs-body-text">The solution introduces a transparent pricing system that provides clear cost visibility throughout the entire ordering journey.</p>
+          <div class="card-grid">
+            <div class="card"><div class="card-num">Visibility</div><div class="card-body">Early display of estimated total price on item pages · Clear cost hierarchy for cost information</div></div>
+            <div class="card"><div class="card-num">Breakdown</div><div class="card-body">Detailed breakdown of delivery fees, service charges, and taxes · A condensed pricing summary across the checkout flow</div></div>
+          </div>
+          <div class="flow-grid" style="margin-top:16px">
+            <div class="flow-card">
+              <div class="flow-title">Ordering journey</div>
+              <div class="flow-sub">Pricing visible at every step</div>
+              <div class="flow-steps">
+                <div class="flow-step"><div class="flow-step-n">01</div><div class="flow-step-text">Browse Menu</div></div>
+                <div class="flow-step"><div class="flow-step-n">02</div><div class="flow-step-text">View Item (Est. Total shown)</div></div>
+                <div class="flow-step"><div class="flow-step-n">03</div><div class="flow-step-text">Add to Cart</div></div>
+                <div class="flow-step"><div class="flow-step-n">04</div><div class="flow-step-text">Cart Review (Full Breakdown)</div></div>
+                <div class="flow-step"><div class="flow-step-n">05</div><div class="flow-step-text">Checkout Summary</div></div>
+                <div class="flow-step"><div class="flow-step-n">06</div><div class="flow-step-text">Payment Confirm</div></div>
+              </div>
+              <div class="flow-outcome">No price surprises — user knows the total before committing.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="design">
+          <span class="cs-section-label">Design &amp; Core Screens</span>
+          <h2 class="cs-section-title">Three principles guided every decision</h2>
+          <div class="card-grid cols3">
+            <div class="card dark"><div class="card-num">Clarity</div><div class="card-body">Keep users informed at all times about what they are paying</div></div>
+            <div class="card dark"><div class="card-num">Transparency</div><div class="card-body">All charges must be visible and explained to the user</div></div>
+            <div class="card dark"><div class="card-num">Predictability</div><div class="card-body">Users should know the expected total cost before reaching checkout</div></div>
+          </div>
+          <div class="insight-list" style="margin-top:16px">
+            <div class="insight-card"><div class="insight-n">01</div><div><div class="insight-title">Estimated Total in Cart</div><div class="insight-body">The redesigned cart widget always helps users understand the full cost before checkout.</div></div></div>
+            <div class="insight-card"><div class="insight-n">02</div><div><div class="insight-title">Fee Breakdown Section</div><div class="insight-body">A dedicated section explains delivery fees, service charges, and all taxes — no hidden surprises.</div></div></div>
+            <div class="insight-card"><div class="insight-n">03</div><div><div class="insight-title">Consistent Pricing Summary</div><div class="insight-body">Matching a stable price summary throughout checkout prevents confusion before the final payment step.</div></div></div>
+          </div>
+
+          <!-- USER FLOW SHOWCASE -->
+          <div class="flow-showcase reveal">
+            <span class="flow-showcase-label">Redesigned UI · User Flow</span>
+
+            <!-- Row 1: screens 01 02 03 -->
+            <div class="uf-row">
+              <div class="uf-step">
+                <div class="uf-step-num">01</div>
+                <div class="uf-screen"><img src="../assets/checkout/TP1.png" alt="Offer applied screen"/></div>
+                <div class="callout-list">
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Coupon savings shown clearly</div></div>
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Total price visible before placing order</div></div>
+                </div>
+                <div class="uf-step-label">Offer Applied</div>
+              </div>
+              <div class="uf-step">
+                <div class="uf-step-num">02</div>
+                <div class="uf-screen"><img src="../assets/checkout/TP3.png" alt="Cart with estimated total"/></div>
+                <div class="callout-list">
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Estimated total shown on menu screen</div></div>
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">"No surprise charges" reassurance</div></div>
+                </div>
+                <div class="uf-step-label">Cart · Estimated Total</div>
+              </div>
+              <div class="uf-step">
+                <div class="uf-step-num">03</div>
+                <div class="uf-screen"><img src="../assets/checkout/TP5.png" alt="Checkout screen"/></div>
+                <div class="callout-list">
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Savings applied & visible at checkout</div></div>
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Final total shown before payment</div></div>
+                </div>
+                <div class="uf-step-label">Checkout</div>
+              </div>
+            </div>
+
+            <!-- Row 2: screens 04 05 06 -->
+            <div class="uf-row">
+              <div class="uf-step">
+                <div class="uf-step-num">04</div>
+                <div class="uf-screen"><img src="../assets/checkout/TP6.png" alt="Checkout scrolled down"/></div>
+                <div class="callout-list">
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Delivery address & time confirmed</div></div>
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Payment method visible before confirm</div></div>
+                </div>
+                <div class="uf-step-label">Checkout · Scroll Down</div>
+              </div>
+              <div class="uf-step">
+                <div class="uf-step-num">05</div>
+                <div class="uf-screen"><img src="../assets/checkout/TP7.png" alt="Bill summary expanded"/></div>
+                <div class="callout-list">
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Full fee breakdown — taxes, delivery, charges</div></div>
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">User can see exactly what they pay for</div></div>
+                </div>
+                <div class="uf-step-label">Bill Summary · Expanded</div>
+              </div>
+              <div class="uf-step">
+                <div class="uf-step-num">06</div>
+                <div class="uf-screen"><img src="../assets/checkout/TP8.png" alt="Bill summary unexpanded"/></div>
+                <div class="callout-list">
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Collapsed view — clean & scannable</div></div>
+                  <div class="callout-item"><div class="callout-dot"></div><div class="callout-text">Expandable for users who want detail</div></div>
+                </div>
+                <div class="uf-step-label">Bill Summary · Collapsed</div>
+              </div>
+            </div>
+
+            <p class="uf-caption">Pricing visible at every step — no surprises before payment</p>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="outcome">
+          <span class="cs-section-label">Outcome &amp; Learnings</span>
+          <h2 class="cs-section-title">Trust is built one transparent step at a time</h2>
+          <div class="test-stats">
+            <div class="test-stat"><div class="test-stat-num">&#8595; Cart</div><div class="test-stat-desc">Abandonment reduced through earlier price visibility</div></div>
+            <div class="test-stat"><div class="test-stat-num">&#8593; Trust</div><div class="test-stat-desc">User confidence improved with full fee breakdown</div></div>
+            <div class="test-stat"><div class="test-stat-num">&#8593; Clarity</div><div class="test-stat-desc">Fee comprehension improved via dedicated cost summary</div></div>
+          </div>
+          <div class="closing-box" style="margin-top:16px">
+            <p>Pricing transparency builds trust — seeing pricing information early creates significantly more trust than revealing it at the final step. <strong>Even small improvements in how cost information is communicated can significantly influence user behaviour and satisfaction.</strong></p>
+            <p style="margin-top:12px">Designing financial interactions requires balancing transparency with simplicity — too much data at once overwhelms users. The goal is clarity, not completeness.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="page-footer-meta">
+        <div class="tools-row"><span class="tool-pill">Figma</span><span class="tool-pill">FigJam</span><span class="tool-pill">UX Research</span><span class="tool-pill">Interaction Design</span></div>
+        <a href="../index.html#work" class="btn-back">&#8592; Back to Work</a>
+      </div>
+    </div>
+  </div>
+  <script src="../shared.js"></script>
+  <script>
+    const toc=document.querySelectorAll('.toc a[href^="#"]');
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){toc.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{threshold:.35});
+    document.querySelectorAll('.cs-section[id]').forEach(s=>obs.observe(s));
+  </script>
+</body>
+</html>
