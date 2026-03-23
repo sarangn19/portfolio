@@ -38,7 +38,7 @@ body{font-family:var(--sans);background:var(--cream);color:var(--text);overflow-
 .cs-body{padding:0;max-width:100%}
 
 /* ── HERO ── */
-.cs-hero{padding:40px 52px 36px;background:var(--espresso);border-bottom:1px solid rgba(255,255,255,.06)}
+.cs-hero{padding:80px 52px 36px;background:var(--espresso);border-bottom:1px solid rgba(255,255,255,.06)}
 .cs-hero.light{background:var(--warm);border-bottom:1px solid var(--sand)}
 .cs-hero-inner{max-width:100%}
 .cs-tag{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terracotta);margin-bottom:10px;display:block}

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flow — Designing Against EMI Blindness · Sarang N</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../shared.css"/>
+  <style>
+    .emi-showcase{margin:24px 0}
+    .emi-showcase-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terracotta);margin-bottom:20px;display:block}
+    .emi-row{display:flex;align-items:flex-start;justify-content:center;gap:12px;flex-wrap:nowrap;margin-bottom:16px}
+    .emi-step{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0}
+    .emi-screen img{width:100%;height:auto;display:block;border-radius:16px;filter:contrast(1.04) saturate(1.04)}
+    .emi-step-num{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);margin-bottom:6px}
+    .emi-step-label{font-size:.68rem;color:var(--muted);text-align:center;margin-top:8px;line-height:1.4}
+    .emi-caption{font-size:.7rem;color:var(--muted);text-align:center;margin-top:4px;letter-spacing:.04em}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+    .stat-card{background:var(--warm);border-radius:8px;padding:16px 12px;text-align:center}
+    .stat-num{font-size:1.6rem;font-weight:600;color:var(--espresso);line-height:1}
+    .stat-desc{font-size:.7rem;color:var(--muted);margin-top:6px;line-height:1.4}
+    .decision-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+    .decision-row{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:8px;background:var(--warm)}
+    .decision-row.chosen{background:rgba(192,98,42,.07);border-left:3px solid var(--terracotta)}
+    .decision-row.rejected{opacity:.6;border-left:3px solid var(--sand)}
+    .decision-badge{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--sand);color:var(--muted);white-space:nowrap;flex-shrink:0;margin-top:2px}
+    .decision-row.chosen .decision-badge{background:var(--terracotta);color:#fff}
+    .decision-title{font-size:.85rem;font-weight:500;color:var(--espresso);margin-bottom:4px}
+    .decision-body{font-size:.78rem;color:var(--muted);line-height:1.5}
+    .edge-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.8rem}
+    .edge-table th{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--sand)}
+    .edge-table td{padding:10px 12px;border-bottom:1px solid var(--warm);line-height:1.5;color:var(--text);vertical-align:top}
+    .edge-table td:first-child{font-weight:500;color:var(--espresso)}
+    .risk-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+    .risk-card{display:flex;gap:14px;padding:14px 16px;background:var(--warm);border-radius:8px}
+    .risk-n{font-size:.7rem;font-weight:600;color:var(--terracotta);flex-shrink:0;padding-top:2px}
+    .risk-title{font-size:.85rem;font-weight:500;color:var(--espresso);margin-bottom:4px}
+    .risk-body{font-size:.78rem;color:var(--muted);line-height:1.5}
+    .compare-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+    .compare-col{padding:16px;border-radius:8px;background:var(--warm)}
+    .compare-col.bad{border-top:3px solid var(--sand)}
+    .compare-col.good{border-top:3px solid var(--terracotta)}
+    .compare-label{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+    .compare-col p{font-size:.82rem;line-height:1.6;color:var(--text)}
+    @media(max-width:700px){
+      .emi-row{flex-wrap:wrap}
+      .emi-step{width:calc(50% - 8px);flex:none}
+      .stat-grid{grid-template-columns:repeat(2,1fr)}
+      .compare-cols{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <nav class="cs-nav">
+    <a class="cs-nav-logo" href="../index.html">Sarang.</a>
+    <a class="cs-nav-back" href="../index.html#work">&#8592; Back to Work</a>
+  </nav>
+  <div class="cs-hero">
+    <span class="cs-tag">Case Study &#183; Fintech &#183; UX Research + Product Design</span>
+    <h1 class="cs-hero-title">Flow &#8212; Designing Against <em>EMI Blindness</em></h1>
+    <p class="cs-hero-sub">Your bank balance tells you how much money you have. It doesn&#8217;t tell you when you&#8217;re broke. Flow looks forward &#8212; projecting your balance across time so you can see exactly when it runs out, before it does.</p>
+    <div class="cs-meta-row">
+      <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-val">Lead Designer</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Research</span><span class="cs-meta-val">30 Interviews &#183; 70 Surveys</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Methods</span><span class="cs-meta-val">Qualitative + Usability Testing</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Stage</span><span class="cs-meta-val">Early Usability Testing</span></div>
+    </div>
+  </div>
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-label">On this page</div>
+      <a href="#problem">The Problem</a>
+      <a href="#research">Research</a>
+      <a href="#exploration">Design Exploration</a>
+      <a href="#solution">Solution</a>
+      <a href="#screens">Screens</a>
+      <a href="#logic">System Logic</a>
+      <a href="#edge">Edge Cases</a>
+      <a href="#risks">Product Risks</a>
+      <a href="#testing">Usability Testing</a>
+      <a href="#positioning">Positioning</a>
+      <a href="#reflection">Reflection</a>
+      <a href="#next">What&#8217;s Next</a>
+      <div class="toc-spacer"></div>
+      <a href="../index.html#work" class="toc-back">&#8592; Back to Work</a>
+    </aside>
+    <div class="cs-body">
+      <div class="cs-content">
+
+        <div class="cs-section reveal" id="problem">
+          <span class="cs-section-label">The Problem</span>
+          <h2 class="cs-section-title">A number that lies</h2>
+          <p class="cs-body-text">Open your bank app. You see &#8377;22,000. Most people read that as &#8220;I have &#8377;22,000 to spend.&#8221; They don&#8217;t. That number ignores EMIs due this week, subscriptions debiting Friday, the slow daily bleed of UPI payments. The balance is a snapshot of right now &#8212; not a picture of what&#8217;s coming.</p>
+          <p class="cs-body-text">By month&#8217;s end, many users are stressed and confused &#8212; not because they overspent dramatically, but because they never saw it coming. The balance was a false confidence signal the whole time.</p>
+          <div class="pull-quote"><p>&#8220;If I see &#8377;20k, I assume I&#8217;m fine. Then I check again on the 28th and wonder where everything went.&#8221;</p><cite>Research participant, 26, software engineer</cite></div>
+          <p class="cs-body-text" style="margin-top:16px">This isn&#8217;t a discipline failure. It&#8217;s a visibility failure. The information exists &#8212; in transaction history, SMS inbox, recurring payments. It just isn&#8217;t assembled anywhere.</p>
+        </div>
+
+        <div class="cs-section reveal" id="research">
+          <span class="cs-section-label">Research</span>
+          <h2 class="cs-section-title">What the data showed &#8212; and where it got complicated</h2>
+          <div class="stat-grid">
+            <div class="stat-card"><div class="stat-num">76%</div><div class="stat-desc">Have at least one active EMI</div></div>
+            <div class="stat-card"><div class="stat-num">48%</div><div class="stat-desc">Can&#8217;t accurately state their real savings</div></div>
+            <div class="stat-card"><div class="stat-num">75%</div><div class="stat-desc">Report financial stress tied to EMIs</div></div>
+            <div class="stat-card"><div class="stat-num">68%</div><div class="stat-desc">Want a clearer planning tool</div></div>
+          </div>
+          <p class="cs-body-text" style="margin-top:20px">Surveys confirmed scale. Thirty interviews revealed texture &#8212; including the parts that complicated the clean narrative.</p>
+          <div class="insight-list" style="margin-top:12px">
+            <div class="insight-card"><div class="insight-n">01</div><div><div class="insight-title">Balance as a proxy for safety</div><div class="insight-body">Users don&#8217;t actively ignore future debits &#8212; they just lack a mental model that accounts for them. The balance feels authoritative; obligations feel abstract.</div></div></div>
+            <div class="insight-card"><div class="insight-n">02</div><div><div class="insight-title">EMI decisions made in isolation</div><div class="insight-body">&#8220;The EMI is only &#8377;3,000&#8221; sounds manageable until you&#8217;re carrying five. Users evaluate each individually, almost never against total committed monthly outflow.</div></div></div>
+            <div class="insight-card"><div class="insight-n">03</div><div><div class="insight-title">The invisible spend problem</div><div class="insight-body">UPI made small transactions frictionless &#8212; and therefore forgettable. Users consistently underestimated daily spend by 30&#8211;40%. Transactions aren&#8217;t hidden; they just don&#8217;t form a memory.</div></div></div>
+            <div class="insight-card"><div class="insight-n">04</div><div><div class="insight-title">The uncomfortable one &#8212; some users knowingly ignore EMIs</div><div class="insight-body">About a quarter of interviewees knew their situation and chose not to engage. &#8220;I&#8217;ll adjust at the end of the month.&#8221; For them, the problem isn&#8217;t visibility &#8212; it&#8217;s avoidance. Flow isn&#8217;t designed for them. That&#8217;s a deliberate scope decision.</div></div></div>
+          </div>
+          <div class="closing-box" style="margin-top:16px">
+            <p>Three interviewees felt detailed tracking creates anxiety rather than reducing it &#8212; that not knowing the exact number is a coping mechanism. This shaped the notification approach: Flow surfaces information passively rather than alerting constantly.</p>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="exploration">
+          <span class="cs-section-label">Design Exploration</span>
+          <h2 class="cs-section-title">What we tried, what failed, and why</h2>
+          <p class="cs-body-text">The first direction was a &#8220;safe-to-spend&#8221; number: subtract committed future expenses from balance, surface one figure. It tested well in concept. It fell apart in practice.</p>
+          <div class="decision-list">
+            <div class="decision-row rejected"><span class="decision-badge">Dead end</span><div><div class="decision-title">Safe-to-spend number</div><div class="decision-body">When EMIs clustered mid-month, the number swung wildly. When salary was three days out, it looked falsely dire. Worst: users anchored on it as permission to spend, not as a warning. A single number can&#8217;t represent a time-based problem &#8212; it collapses the dimension that actually matters.</div></div></div>
+            <div class="decision-row rejected"><span class="decision-badge">Rejected</span><div><div class="decision-title">Push alerts &#8212; proactive warnings</div><div class="decision-body">Users muted them within two weeks. Alert systems require perfect calibration &#8212; one false positive destroys credibility.</div></div></div>
+            <div class="decision-row rejected"><span class="decision-badge">Rejected</span><div><div class="decision-title">Calendar view &#8212; financial calendar</div><div class="decision-body">Shows events. Doesn&#8217;t show trajectory. Tells you when the EMI leaves; not what balance looks like the day after.</div></div></div>
+            <div class="decision-row rejected"><span class="decision-badge">Rejected</span><div><div class="decision-title">AI risk score &#8212; predictive health score</div><div class="decision-body">Black-box numbers don&#8217;t explain themselves. Users distrust scores they can&#8217;t verify &#8212; especially for something as personal as money.</div></div></div>
+            <div class="decision-row chosen"><span class="decision-badge">Chosen</span><div><div class="decision-title">Balance timeline &#8212; time-based visualisation</div><div class="decision-body">Balance as a continuous line. Events plotted as they occur. Users see exactly when and why balance moves &#8212; and where it crosses zero. No interpretation required. Financial risk isn&#8217;t about how much money you have. It&#8217;s about when it leaves.</div></div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="solution">
+          <span class="cs-section-label">The Solution</span>
+          <h2 class="cs-section-title">One moment. One question.</h2>
+          <p class="cs-body-text">Flow is used at one critical moment: before committing to a financial decision. Not as a daily dashboard. The primary trigger is one question &#8212; &#8220;Can I take on this EMI?&#8221; &#8212; and the timeline answers it with evidence rather than a guess.</p>
+          <p class="cs-body-text">The interface is a forward-looking timeline. Income arrives, expenses leave, balance moves. The point where the line crosses zero is the primary signal. Users don&#8217;t calculate anything. They just see it.</p>
+          <div class="scenario-box" style="margin-top:20px">
+            <div class="scenario-name">Rahul, 27 &#8212; Product Manager &#183; &#8377;65,000/month &#183; 2 existing EMIs</div>
+            <div class="scenario-sub">Sees a laptop on EMI &#8212; &#8377;4,200/month. Bank balance shows &#8377;23,000. He&#8217;s already mentally decided to take it.</div>
+            <div class="scenario-cols">
+              <div class="scenario-col bad"><div class="scenario-col-label">Without Flow</div><p>Takes the EMI today. Hits a cash crunch on the 18th. Reaches for a credit card. The laptop ends up costing more than the sticker price.</p></div>
+              <div class="scenario-col good"><div class="scenario-col-label">With Flow</div><p>Opens Flow, adds the hypothetical EMI. Timeline reruns. Balance crosses zero on the 18th &#8212; four days before salary. Waits until next month when one EMI closes. Same laptop, no cash crunch, no interest, no stress.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section" id="screens">
+          <span class="cs-section-label">Flow &#8212; Screen Progression</span>
+          <h2 class="cs-section-title">Key states across the add event and timeline flows</h2>
+          <div class="emi-showcase">
+            <div class="emi-row">
+              <div class="emi-step">
+                <div class="emi-step-num">01</div>
+                <div class="emi-screen"><img src="../assets/emi/1.png" alt="Add event flow"/></div>
+                <div class="emi-step-label">Add event flow &#8212; income, expense, or EMI</div>
+              </div>
+              <div class="emi-step">
+                <div class="emi-step-num">02</div>
+                <div class="emi-screen"><img src="../assets/emi/2.png" alt="Salary credit on timeline"/></div>
+                <div class="emi-step-label">Salary credit &#8212; &#8377;20,000 balance impact plotted</div>
+              </div>
+              <div class="emi-step">
+                <div class="emi-step-num">03</div>
+                <div class="emi-screen"><img src="../assets/emi/3.png" alt="EMI event card"/></div>
+                <div class="emi-step-label">EMI event card &#8212; debit dates visible</div>
+              </div>
+              <div class="emi-step">
+                <div class="emi-step-num">04</div>
+                <div class="emi-screen"><img src="../assets/emi/4.png" alt="Daily spend input"/></div>
+                <div class="emi-step-label">Daily spend input &#8212; single figure, not a list</div>
+              </div>
+            </div>
+            <div class="emi-row" style="max-width:75%;margin-left:auto;margin-right:auto">
+              <div class="emi-step">
+                <div class="emi-step-num">05</div>
+                <div class="emi-screen"><img src="../assets/emi/5.png" alt="EMI event detail"/></div>
+                <div class="emi-step-label">EMI event detail</div>
+              </div>
+              <div class="emi-step">
+                <div class="emi-step-num">06</div>
+                <div class="emi-screen"><img src="../assets/emi/6.png" alt="Daily spend input detail"/></div>
+                <div class="emi-step-label">Daily spend input</div>
+              </div>
+              <div class="emi-step">
+                <div class="emi-step-num">07</div>
+                <div class="emi-screen"><img src="../assets/emi/7.png" alt="Add event flow detail"/></div>
+                <div class="emi-step-label">Add event flow</div>
+              </div>
+            </div>
+            <p class="emi-caption">Flow &#8212; financial clarity at every step</p>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="logic">
+          <span class="cs-section-label">System Logic</span>
+          <h2 class="cs-section-title">How it actually works</h2>
+          <p class="cs-body-text">The UI is only as trustworthy as the model behind it.</p>
+          <div class="insight-list">
+            <div class="insight-card"><div class="insight-n">EMI</div><div><div class="insight-title">EMI detection</div><div class="insight-body">SMS parsing identifies recurring bank debits. Users manually confirm on first occurrence; auto-detects after two consistent cycles. Irregular payments flag for review &#8212; never silently update the model.</div></div></div>
+            <div class="insight-card"><div class="insight-n">Bills</div><div><div class="insight-title">Recurring bills</div><div class="insight-body">Requires three months of consistent UPI pattern before classifying something as recurring. One-time large payments that repeat don&#8217;t get auto-classified &#8212; a common false-positive source in earlier builds.</div></div></div>
+            <div class="insight-card"><div class="insight-n">Spend</div><div><div class="insight-title">Daily spend</div><div class="insight-body">Rolling 30-day average, excluding EMIs and known bills. A projection, not a prediction &#8212; estimation basis is visible and overridable. Per-transaction display was tested and dropped: it caused users to lose sight of the aggregate.</div></div></div>
+            <div class="insight-card"><div class="insight-n">Sim</div><div><div class="insight-title">Simulation</div><div class="insight-body">Balance recalculates after each plotted event, not just month-end. This makes the critical moment locatable &#8212; you see the specific payment that triggers a negative balance, not just that it goes negative somewhere.</div></div></div>
+            <div class="insight-card"><div class="insight-n">Trust</div><div><div class="insight-title">Trust model</div><div class="insight-body">Confirmed events (salary, known EMIs) are visually distinguished from estimates. Confidence degrades toward month-end &#8212; communicated through line weight on the timeline, not fine print.</div></div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="edge">
+          <span class="cs-section-label">Edge Cases &amp; Failures</span>
+          <h2 class="cs-section-title">Where this breaks</h2>
+          <table class="edge-table">
+            <thead><tr><th>Problem</th><th>Issue</th><th>Response</th></tr></thead>
+            <tbody>
+              <tr><td>Irregular income</td><td>No salary date means the timeline shows a spiral to zero &#8212; accurate but alarming and useless.</td><td>Expected income range and date. Timeline shows a shaded zone rather than a hard line. V1 partial &#8212; limitation disclosed upfront.</td></tr>
+              <tr><td>Sudden large expenses</td><td>A medical bill or emergency travel wipes out a buffer instantly. Unpredictable by definition.</td><td>Manual one-time event input for scenario simulation. Shifts from prediction to simulation &#8212; less automated, more honest.</td></tr>
+              <tr><td>Prediction error compounds</td><td>A spend estimate off by &#8377;200 is harmless day 1. By day 25, it&#8217;s a &#8377;5,000 error in projected balance.</td><td>Confidence bands widen toward month-end. Weekly recalibration nudge. Uncertainty is visual, not statistical.</td></tr>
+              <tr><td>Incomplete data</td><td>Multiple accounts or denied SMS permissions produce partial views that users may treat as complete.</td><td>Coverage indicator shows confirmed vs estimated outflow percentage. Unsolved in V1 &#8212; honest disclosure, not false precision.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cs-section reveal" id="risks">
+          <span class="cs-section-label">Product Risks</span>
+          <h2 class="cs-section-title">What could actually kill this</h2>
+          <div class="risk-list">
+            <div class="risk-card"><div class="risk-n">01</div><div><div class="risk-title">Users don&#8217;t trust projections &#8212; and churn silently</div><div class="risk-body">If the daily spend estimate is visibly wrong two weeks in a row, users don&#8217;t complain. They just stop checking. Trust in a financial tool is binary: once lost, it doesn&#8217;t recover. The whole product depends on projection accuracy feeling reliable in the first month.</div></div></div>
+            <div class="risk-card"><div class="risk-n">02</div><div><div class="risk-title">Data permissions drop-off kills activation</div><div class="risk-body">SMS access, UPI history, and account linking are all required. Any one denied at onboarding degrades the experience. On iOS, SMS parsing isn&#8217;t available &#8212; which makes the standalone product Android-first by necessity, not choice.</div></div></div>
+            <div class="risk-card"><div class="risk-n">03</div><div><div class="risk-title">The timeline is cognitively heavier than a number</div><div class="risk-body">Two users said the interface felt &#8220;like work&#8221; compared to just checking their bank app. If understanding the timeline costs more effort than ignoring the problem, users will ignore the problem. This is the core UX risk &#8212; unresolved until tested at much larger scale.</div></div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="testing">
+          <span class="cs-section-label">Early Usability Testing</span>
+          <h2 class="cs-section-title">What worked, what didn&#8217;t, what changed</h2>
+          <p class="cs-body-text">Five users, real financial scenarios, two sessions. This confirms the interface communicates clearly &#8212; not that it produces different decisions over time. That requires a longer study.</p>
+          <div class="test-stats">
+            <div class="test-stat"><div class="test-stat-num">4/5</div><div class="test-stat-desc">Identified the critical moment without prompting</div></div>
+            <div class="test-stat"><div class="test-stat-num">5/5</div><div class="test-stat-desc">Preferred timeline over numerical summaries</div></div>
+            <div class="test-stat"><div class="test-stat-num">0</div><div class="test-stat-desc">Required manual calculation to find their position</div></div>
+          </div>
+          <div class="insight-list" style="margin-top:16px">
+            <div class="insight-card"><div class="insight-n">&#8220;</div><div><div class="insight-body">This makes it obvious where I go broke.</div></div></div>
+            <div class="insight-card"><div class="insight-n">&#8220;</div><div><div class="insight-body">I understand what&#8217;s happening &#8212; but I don&#8217;t trust the daily spend estimate. Last month was unusual.</div></div></div>
+          </div>
+          <div class="closing-box" style="margin-top:16px">
+            <p>These two quotes led directly to the manual override feature and confidence band treatment.</p>
+            <p style="margin-top:12px">Two users stopped checking after three days &#8212; the ambient awareness use case is weaker than the decision-moment use case. That&#8217;s the most important finding, and it shapes what gets built next.</p>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="positioning">
+          <span class="cs-section-label">Product Positioning</span>
+          <h2 class="cs-section-title">What Flow is &#8212; and the deployment tradeoff</h2>
+          <div class="card-grid cols3">
+            <div class="card"><div class="card-num">Not this</div><div class="card-title">Expense tracker</div><div class="card-body">Trackers explain the past. Flow projects the future. Different temporal orientation, different use case.</div></div>
+            <div class="card"><div class="card-num">Not this</div><div class="card-title">Budget planner</div><div class="card-body">Planners require consistent input. Flow works passively &#8212; value without new habits.</div></div>
+            <div class="card dark"><div class="card-num">This</div><div class="card-title">Decision support</div><div class="card-body">Used at one moment: before committing to a financial obligation. One question, one evidence-backed answer.</div></div>
+          </div>
+          <div class="card-grid" style="margin-top:12px">
+            <div class="card"><div class="card-num">Option A &#8212; Bank integration</div><div class="card-title">Embedded in an existing app</div><div class="card-body">Transaction data exists. Trust established. No cold-start problem. Requires a bank partnership &#8212; banks historically avoid surfacing alarming projections.</div></div>
+            <div class="card dark"><div class="card-num">Option B &#8212; Standalone</div><div class="card-title">Independent product</div><div class="card-body">Full design control. Fast iteration. Captures multi-bank users. Cold-start data problem. iOS SMS unavailable &#8212; Android-first by necessity.</div></div>
+          </div>
+          <div class="closing-box" style="margin-top:16px">
+            <p>The sequencing decision: start standalone to prove the concept, design for eventual bank API integration as the data quality upgrade. Not competing paths &#8212; sequential ones.</p>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="reflection">
+          <span class="cs-section-label">The Uncomfortable Truth</span>
+          <h2 class="cs-section-title">Flow solves ignorance, not discipline</h2>
+          <div class="closing-box">
+            <p>Visibility is the precondition for better decisions &#8212; it isn&#8217;t the decision itself. The quarter of users who knew their situation and chose not to engage don&#8217;t need a better interface. They need a different relationship with money, and that isn&#8217;t a design problem.</p>
+            <p style="margin-top:12px">This product is built for people who would make different choices if they could see what was coming. That group is large, real, and underserved. It is not everyone &#8212; and pretending otherwise would make the product worse for the people it can actually help.</p>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="next">
+          <span class="cs-section-label">What This Proves &amp; What Comes Next</span>
+          <h2 class="cs-section-title">Demonstrated. Not yet proven.</h2>
+          <div class="card-grid">
+            <div class="card dark"><div class="card-num">Demonstrated</div><div class="card-body">Time-based framing is more actionable than a summary number &#183; Users locate a financial problem rather than just knowing one exists &#183; Interface communicates without calculation</div></div>
+            <div class="card"><div class="card-num">Not yet proven</div><div class="card-body">Whether this changes actual decisions &#183; Whether users return at the critical moment &#183; Whether spend estimate accuracy degrades trust over weeks of use</div></div>
+          </div>
+          <div class="insight-list" style="margin-top:16px">
+            <div class="insight-card"><div class="insight-n">01</div><div><div class="insight-title">Design the EMI decision moment as a dedicated flow</div><div class="insight-body">The ambient timeline and decision simulator are two products sharing one interface. They need to be separated &#8212; or one cut.</div></div></div>
+            <div class="insight-card"><div class="insight-n">02</div><div><div class="insight-title">Expand testing across income profiles</div><div class="insight-body">Current sample skews salaried, urban, single bank account. Irregular income and multi-account cases need dedicated testing.</div></div></div>
+            <div class="insight-card"><div class="insight-n">03</div><div><div class="insight-title">Run a behaviour change study</div><div class="insight-body">60 days. Split group. Half with Flow, half without. Compare EMI commitment rates and end-of-month balance outcomes. That&#8217;s the only data that proves the thesis.</div></div></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="page-footer-meta">
+        <div class="tools-row"><span class="tool-pill">Figma</span><span class="tool-pill">FigJam</span><span class="tool-pill">UX Research</span><span class="tool-pill">Usability Testing</span></div>
+        <a href="../index.html#work" class="btn-back">&#8592; Back to Work</a>
+      </div>
+    </div>
+  </div>
+  <script src="../shared.js"></script>
+  <script>
+    const toc=document.querySelectorAll('.toc a[href^="#"]');
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){toc.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{threshold:.35});
+    document.querySelectorAll('.cs-section[id]').forEach(s=>obs.observe(s));
+  </script>
+</body>
+</html>
