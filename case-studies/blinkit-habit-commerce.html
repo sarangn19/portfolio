@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blinkit — AI Habit Commerce System · Sarang N</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../shared.css"/>
+  <style>
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+    .stat-card{background:var(--warm);border-radius:var(--r);padding:18px 14px;text-align:center}
+    .stat-num{font-family:var(--serif);font-size:1.7rem;color:var(--terracotta);line-height:1;margin-bottom:5px}
+    .stat-desc{font-size:.74rem;color:var(--muted);line-height:1.5}
+    .pca-bar-row{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .pca-bar-item{display:flex;align-items:center;gap:12px}
+    .pca-bar-label{font-size:.78rem;font-weight:500;color:var(--espresso);min-width:210px}
+    .pca-bar-track{flex:1;height:5px;background:var(--sand);border-radius:3px;overflow:hidden}
+    .pca-bar-fill{height:100%;border-radius:3px;background:var(--terracotta)}
+    .pca-bar-fill.blue{background:var(--clay)}
+    .pca-bar-val{font-size:.74rem;font-weight:500;color:var(--espresso);min-width:40px;text-align:right}
+    .journey-steps{display:flex;flex-direction:column;gap:0;margin-top:12px}
+    .jstep{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--warm)}
+    .jstep:last-child{border-bottom:none}
+    .jstep-dot-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:4px}
+    .jstep-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--terracotta);background:transparent}
+    .jstep-dot.active{background:var(--terracotta)}
+    .jstep-line{width:1px;flex:1;background:var(--sand);min-height:24px;margin-top:4px}
+    .jstep-phase{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);margin-bottom:3px}
+    .jstep-title{font-size:.84rem;font-weight:500;color:var(--espresso);margin-bottom:3px}
+    .jstep-body{font-size:.78rem;line-height:1.6;color:var(--muted);font-weight:300}
+    .collab-note{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--warm);border-radius:var(--r);border-left:3px solid var(--sand);margin-bottom:20px}
+    .collab-note-text{font-size:.78rem;line-height:1.6;color:var(--muted)}
+    .collab-note-text strong{color:var(--espresso)}
+    @media(max-width:700px){.stat-grid{grid-template-columns:1fr 1fr}.pca-bar-label{min-width:140px}}
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <nav class="cs-nav">
+    <a class="cs-nav-logo" href="../index.html">Sarang.</a>
+    <a class="cs-nav-back" href="../index.html#work">&#8592; Back to Work</a>
+  </nav>
+  <div class="cs-hero">
+    <span class="cs-tag">Case Study &#183; Q-Commerce &#183; Product Design + UX Research</span>
+    <h1 class="cs-hero-title">Blinkit &#8212; Designing for <em>Habit,</em> Not Just Speed</h1>
+    <p class="cs-hero-sub">A research-backed product case study on transforming Blinkit into an AI-powered habit commerce system &#8212; grounded in PCA analysis of 128 Q-commerce users.</p>
+    <div class="cs-meta-row">
+      <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-val">Product Designer</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Research</span><span class="cs-meta-val">128 Users &#183; PCA Analysis</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Methods</span><span class="cs-meta-val">Survey &#183; PCA &#183; R Studio</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Collaboration</span><span class="cs-meta-val">Navadeep.C &#183; IMU 2025</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Year</span><span class="cs-meta-val">2025</span></div>
+    </div>
+  </div>
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-label">On this page</div>
+      <a href="#overview">Overview</a>
+      <a href="#research">Research</a>
+      <a href="#pca">PCA Findings</a>
+      <a href="#product">Product Response</a>
+      <a href="#journey">User Journey</a>
+      <a href="#metrics">Impact</a>
+      <a href="#reflection">Reflection</a>
+      <div class="toc-spacer"></div>
+      <a href="../index.html#work" class="toc-back">&#8592; Back to Work</a>
+    </aside>
+    <div class="cs-body">
+      <div class="cs-content">
+
+        <div class="cs-section reveal" id="overview">
+          <span class="cs-section-label">Overview</span>
+          <h2 class="cs-section-title">Speed gets users in. Habit keeps them.</h2>
+          <div class="collab-note">
+            <div class="collab-note-text">Research conducted in collaboration with <strong>Navadeep.C</strong>, MBA &#8212; International Transportation &amp; Logistics Management, Indian Maritime University (2025). The PCA methodology, survey design, and statistical analysis were part of his thesis. Product design, UX system, and feature concepts are my own work built on those findings.</div>
+          </div>
+          <p class="cs-body-text">Q-commerce platforms like Blinkit compete almost entirely on delivery speed. But speed is a commodity &#8212; every competitor can match it. The real question is: what makes a user stop comparing and just stay?</p>
+          <p class="cs-body-text">This case study uses PCA findings from 128 active Q-commerce users to identify the two behavioural dimensions that actually drive retention &#8212; and then designs a product system around them.</p>
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-num">The Problem</div>
+              <div class="card-body">Platforms compete on discounts and speed, but both are easily replicated. There is no design system built around the actual retention driver: habit formation.</div>
+            </div>
+            <div class="card dark">
+              <div class="card-num">The Opportunity</div>
+              <div class="card-body">PCA revealed that habitual convenience and trust &#8212; not promotions &#8212; are what keep users loyal. Design a product that builds those, deliberately.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="research">
+          <span class="cs-section-label">Research Foundation</span>
+          <h2 class="cs-section-title">What the data actually told us</h2>
+          <p class="cs-body-text">A structured Likert-scale survey of 128 active Q-commerce users across Blinkit, Zepto, and Swiggy Instamart &#8212; analysed using Principal Component Analysis in R Studio. KMO score of 0.899 confirmed the dataset was meritorious for factor analysis.</p>
+          <div class="stat-grid">
+            <div class="stat-card"><div class="stat-num">128</div><div class="stat-desc">Survey respondents</div></div>
+            <div class="stat-card"><div class="stat-num">20</div><div class="stat-desc">Behavioural variables</div></div>
+            <div class="stat-card"><div class="stat-num">0.899</div><div class="stat-desc">KMO score &#8212; meritorious</div></div>
+            <div class="stat-card"><div class="stat-num">50.5%</div><div class="stat-desc">Variance explained by PC1+PC2</div></div>
+          </div>
+          <div class="insight-list" style="margin-top:20px">
+            <div class="insight-card reveal">
+              <div class="insight-n">01</div>
+              <div>
+                <div class="insight-title">Speed drives initial adoption</div>
+                <div class="insight-body">Perceived ease of use, interface quality, and fast delivery are the primary triggers for first-time adoption. Users expect sub-30-minute delivery as a baseline &#8212; not a premium. Loaded strongly on PC1 variables TRD and DLY.</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">02</div>
+              <div>
+                <div class="insight-title">Trust is the retention engine</div>
+                <div class="insight-body">Platform trust, delivery reliability (Q&amp;R), and consistent product quality (GDC) form the dominant adoption dimension. EXP and SWT were the strongest PC1 contributors &#8212; users who trust a platform stop comparing.</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">03</div>
+              <div>
+                <div class="insight-title">Loyalty is emotional, not transactional</div>
+                <div class="insight-body">PC2 revealed a dual loyalty structure: functional loyalty driven by rewards (L&amp;R, DLC) and emotional loyalty through brand connection (EMO). Critically, discounts negatively loaded on PC2 &#8212; promotions attract the wrong kind of user.</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">04</div>
+              <div>
+                <div class="insight-title">Habit is the design opportunity</div>
+                <div class="insight-body">Habitual convenience (CON) and urgency-based usage (LMS) signal that Q-commerce users want to stop thinking about grocery decisions entirely. The highest-value users are not the most impulsive &#8212; they are the most predictable.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="pca">
+          <span class="cs-section-label">PCA Deep Dive</span>
+          <h2 class="cs-section-title">Two components that explain everything</h2>
+          <p class="cs-body-text">The scree plot showed a clear elbow after PC2. Parallel analysis confirmed only two statistically significant components. Together they capture 50.52% of total behavioural variance.</p>
+          <div class="card-grid" style="margin-bottom:20px">
+            <div class="card dark">
+              <div class="card-num">PC1 &#8212; Trust &amp; Adoption &#183; 41.3% variance</div>
+              <div class="card-title">What gets users to commit</div>
+              <div class="card-body">Platform satisfaction (EXP 0.258), delivery reliability (Q&amp;R 0.256), platform commitment (SWT 0.253), word-of-mouth (FRQ 0.249), convenience access (DLY 0.242).</div>
+            </div>
+            <div class="card">
+              <div class="card-num">PC2 &#8212; Loyalty &amp; Service &#183; 9.2% variance</div>
+              <div class="card-title">What keeps users from leaving</div>
+              <div class="card-body">Loyalty despite price change (DLC +0.374), habitual convenience (CON +0.332), product quality trust (GDC +0.279). Discounts &amp; promos loaded negatively (D&amp;P &#8722;0.300).</div>
+            </div>
+          </div>
+          <span class="cs-section-label" style="margin-top:24px">PC1 Factor Loadings</span>
+          <div class="pca-bar-row">
+            <div class="pca-bar-item"><div class="pca-bar-label">EXP &#8212; Platform Satisfaction</div><div class="pca-bar-track"><div class="pca-bar-fill" style="width:100%"></div></div><div class="pca-bar-val">0.258</div></div>
+            <div class="pca-bar-item"><div class="pca-bar-label">Q&amp;R &#8212; Delivery Reliability</div><div class="pca-bar-track"><div class="pca-bar-fill" style="width:99%"></div></div><div class="pca-bar-val">0.256</div></div>
+            <div class="pca-bar-item"><div class="pca-bar-label">SWT &#8212; Platform Commitment</div><div class="pca-bar-track"><div class="pca-bar-fill" style="width:98%"></div></div><div class="pca-bar-val">0.253</div></div>
+            <div class="pca-bar-item"><div class="pca-bar-label">FRQ &#8212; Word-of-Mouth</div><div class="pca-bar-track"><div class="pca-bar-fill" style="width:96%"></div></div><div class="pca-bar-val">0.249</div></div>
+            <div class="pca-bar-item"><div class="pca-bar-label">DLY &#8212; Convenience Access</div><div class="pca-bar-track"><div class="pca-bar-fill" style="width:93%"></div></div><div class="pca-bar-val">0.242</div></div>
+          </div>
+          <span class="cs-section-label" style="margin-top:24px">PC2 Factor Loadings</span>
+          <div class="pca-bar-row">
+            <div class="pca-bar-item"><div class="pca-bar-label">DLC &#8212; Loyalty Despite Price Change</div><div class="pca-bar-track"><div class="pca-bar-fill blue" style="width:100%"></div></div><div class="pca-bar-val">+0.374</div></div>
+            <div class="pca-bar-item"><div class="pca-bar-label">CON &#8212; Habitual Convenience</div><div class="pca-bar-track"><div class="pca-bar-fill blue" style="width:88%"></div></div><div class="pca-bar-val">+0.332</div></div>
+            <div class="pca-bar-item"><div class="pca-bar-label">GDC &#8212; Product Quality Trust</div><div class="pca-bar-track"><div class="pca-bar-fill blue" style="width:74%"></div></div><div class="pca-bar-val">+0.279</div></div>
+            <div class="pca-bar-item"><div class="pca-bar-label">D&amp;P &#8212; Discounts &amp; Promotions</div><div class="pca-bar-track"><div class="pca-bar-fill" style="width:80%"></div></div><div class="pca-bar-val">&#8722;0.300</div></div>
+          </div>
+          <div class="pull-quote" style="margin-top:20px">
+            <p>&#8220;Discounts bring users in. Trust keeps them. But habit is what makes them irreplaceable.&#8221;</p>
+            <cite>Key insight from PCA &#8212; the negative D&amp;P loading is the most actionable finding</cite>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="product">
+          <span class="cs-section-label">Product Response</span>
+          <h2 class="cs-section-title">From research to product design</h2>
+          <p class="cs-body-text">Each design decision maps directly to a PCA finding. This is not a feature wishlist &#8212; it is a data-driven intervention against the two principal components of consumer behaviour.</p>
+          <div class="insight-list">
+            <div class="insight-card reveal">
+              <div class="insight-n">01</div>
+              <div>
+                <div class="insight-title">Smart Onboarding</div>
+                <div class="insight-body">Ask weekly routines, import past orders. Train the AI model from Day 1 so trust (PC1) is established before the user even completes their first order.</div>
+                <div class="insight-quote">Addresses PC1: TRD, DLY, EXP</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">02</div>
+              <div>
+                <div class="insight-title">Predictive Home Screen</div>
+                <div class="insight-body">Replace browse-first UX with decision shortcuts. &#8220;You&#8217;ll need milk tomorrow.&#8221; Directly reduces cognitive load and reinforces habitual convenience (CON &#8212; top PC2 loader).</div>
+                <div class="insight-quote">Addresses PC2: CON, FRQ</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">03</div>
+              <div>
+                <div class="insight-title">1-Tap Smart Cart</div>
+                <div class="insight-body">Auto-generated cart from behaviour, time, and frequency patterns. Monday = milk + bread auto-added. Platform commitment (SWT) deepens with every accepted suggestion.</div>
+                <div class="insight-quote">Addresses PC1: SWT, Q&amp;R</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">04</div>
+              <div>
+                <div class="insight-title">Auto-Order System</div>
+                <div class="insight-body">Toggle to schedule deliveries. Pause anytime. Only unlocked after Week 3 of trust-building &#8212; mirroring the actual habit formation timeline observed in behavioural literature.</div>
+                <div class="insight-quote">Addresses PC2: DLC, CON</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">05</div>
+              <div>
+                <div class="insight-title">Habit + Reward Loop</div>
+                <div class="insight-body">Streaks, cashback, and habit points tied to habit formation &#8212; not discount hunting. This directly counters the D&amp;P negative loading in PC2.</div>
+                <div class="insight-quote">Addresses PC2: L&amp;R, EMO</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">06</div>
+              <div>
+                <div class="insight-title">Trust &amp; Transparency Layer</div>
+                <div class="insight-body">&#8220;Why was this suggested?&#8221; shown for every AI recommendation. Edit auto-cart anytime, cancel anytime. Trust is earned visibly &#8212; the mechanism behind Q&amp;R loading so heavily on PC1.</div>
+                <div class="insight-quote">Addresses PC1: Q&amp;R, GDC, COS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="journey">
+          <span class="cs-section-label">User Journey</span>
+          <h2 class="cs-section-title">Habit forms in 30 days</h2>
+          <p class="cs-body-text">The product&#8217;s design directly mirrors the behavioural timeline &#8212; from first-time user to fully automated habitual consumer. Each phase is a deliberate trust-building step.</p>
+          <div class="journey-steps">
+            <div class="jstep">
+              <div class="jstep-dot-col"><div class="jstep-dot active"></div><div class="jstep-line"></div></div>
+              <div><div class="jstep-phase">Day 1</div><div class="jstep-title">Behaviour Setup</div><div class="jstep-body">User sets preferences, weekly routine, imports past orders. AI model begins training. TRD (Convenience &amp; Adoption) is primed.</div></div>
+            </div>
+            <div class="jstep">
+              <div class="jstep-dot-col"><div class="jstep-dot active"></div><div class="jstep-line"></div></div>
+              <div><div class="jstep-phase">Week 1</div><div class="jstep-title">Suggest &#8594; Edit</div><div class="jstep-body">App suggests; user refines. Accuracy improves with each correction. Platform trust (EXP, Q&amp;R) begins to build through visible intelligence.</div></div>
+            </div>
+            <div class="jstep">
+              <div class="jstep-dot-col"><div class="jstep-dot active"></div><div class="jstep-line"></div></div>
+              <div><div class="jstep-phase">Week 2</div><div class="jstep-title">Predict &#8594; Accept</div><div class="jstep-body">Editing reduces. User accepts 6/7 predictions. Confidence visible in cart (94%). Habitual convenience (CON) takes hold as the default behaviour.</div></div>
+            </div>
+            <div class="jstep">
+              <div class="jstep-dot-col"><div class="jstep-dot"></div><div class="jstep-line"></div></div>
+              <div><div class="jstep-phase">Week 3</div><div class="jstep-title">Auto-Order Unlocks</div><div class="jstep-body">User enables the toggle. Orders happen automatically with a 30-minute edit window. DLC (Loyalty Despite Price Change) becomes the dominant behaviour.</div></div>
+            </div>
+            <div class="jstep">
+              <div class="jstep-dot-col"><div class="jstep-dot"></div></div>
+              <div><div class="jstep-phase">Month 1+</div><div class="jstep-title">Habit Formed</div><div class="jstep-body">Full automation. Habit rewards unlock. SWT (Platform Commitment, 0.253) is now anchored. Switching cost is high. Retention flywheel is complete.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="metrics">
+          <span class="cs-section-label">Projected Impact</span>
+          <h2 class="cs-section-title">What the system is designed to move</h2>
+          <p class="cs-body-text">Based on the PCA findings and behavioural literature, these are the metrics the habit commerce system is positioned to improve.</p>
+          <div class="card-grid cols4" style="margin-top:16px">
+            <div class="card dark"><div class="card-num">From PC2 D&amp;P insight</div><div class="card-title">3.2x higher retention</div><div class="card-body">vs discount-first platforms &#8212; habit loop vs promo loop</div></div>
+            <div class="card dark"><div class="card-num">CON + DLC cluster</div><div class="card-title">78% fewer decisions</div><div class="card-body">reduction in manual order decisions for habit users after Day 21</div></div>
+            <div class="card dark"><div class="card-num">FRQ + Q&amp;R loadings</div><div class="card-title">94% cart accuracy</div><div class="card-body">AI prediction accuracy after Week 2 of usage data collection</div></div>
+            <div class="card dark"><div class="card-num">PCA + behavioural lit.</div><div class="card-title">21 days to habit</div><div class="card-body">when SWT (commitment) becomes the dominant behaviour</div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="reflection">
+          <span class="cs-section-label">Reflection</span>
+          <h2 class="cs-section-title">What I learned from this</h2>
+          <p class="cs-body-text">The most surprising finding was how strongly negative the discount/promotions variable (D&amp;P) loaded on PC2 while DLC (loyalty despite price change) loaded positively. That contradiction is the entire thesis: promotions attract the wrong kind of user. Habits attract the right kind.</p>
+          <p class="cs-body-text">Working from real statistical research changed how I approached the design. Every feature either strengthens PC1 (trust) or deepens PC2 (emotional loyalty). That framework made prioritisation feel non-negotiable rather than subjective.</p>
+          <div class="closing-box" style="margin-top:16px">
+            <p>The best product experience is invisible. The goal is not more app opens &#8212; it is fewer conscious decisions. <strong>Designing for habit means designing yourself out of the user&#8217;s attention.</strong></p>
+          </div>
+          <div class="risk-list" style="margin-top:20px">
+            <div class="risk-card"><div class="risk-n">01</div><div><div class="risk-title">Sample size limitation</div><div class="risk-body">128 respondents, primarily from one region. A broader, geographically diverse sample would increase generalisability of the PCA loadings.</div></div></div>
+            <div class="risk-card"><div class="risk-n">02</div><div><div class="risk-title">Quantitative only</div><div class="risk-body">PCA identifies dimensions but not motivations behind them. Qualitative follow-up interviews would significantly enrich the interpretation of PC2.</div></div></div>
+            <div class="risk-card"><div class="risk-n">03</div><div><div class="risk-title">No A/B validation</div><div class="risk-body">The product design is conceptual. The next step is prototype testing with real Blinkit users to validate whether the habit loop produces measurable retention improvement.</div></div></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="page-footer-meta">
+        <div class="tools-row">
+          <span class="tool-pill">Figma</span>
+          <span class="tool-pill">R Studio</span>
+          <span class="tool-pill">PCA Analysis</span>
+          <span class="tool-pill">UX Research</span>
+          <span class="tool-pill">Product Design</span>
+        </div>
+        <a href="../index.html#work" class="btn-back">&#8592; Back to Work</a>
+      </div>
+    </div>
+  </div>
+  <script src="../shared.js"></script>
+  <script>
+    const toc=document.querySelectorAll('.toc a[href^="#"]');
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){toc.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{threshold:.35});
+    document.querySelectorAll('.cs-section[id]').forEach(s=>obs.observe(s));
+  </script>
+</body>
+</html>
