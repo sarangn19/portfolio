@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Cart &mdash; Predictive Grocery Experience &middot; Sarang N</title>
+  <link rel="preconnect" href="https://api.fontshare.com"/>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../shared.css"/>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <nav class="cs-nav">
+    <a class="cs-nav-logo" href="../index.html">Sarang.</a>
+    <a class="cs-nav-back" href="../index.html#projects">&#8592; Back to Work</a>
+  </nav>
+  <div class="cs-hero">
+    <span class="cs-tag">UI Exploration &middot; AI Feature Design &middot; Q-Commerce</span>
+    <h1 class="cs-hero-title">Smart Cart &mdash; Designing a <em>Predictive</em> Grocery Experience</h1>
+    <p class="cs-hero-sub">Users frequently reorder the same grocery items every week, yet still go through the friction of searching, adding, and remembering essentials. Smart Cart quietly removes that effort.</p>
+    <div class="cs-meta-row">
+      <div class="cs-meta-item"><span class="cs-meta-label">Type</span><span class="cs-meta-val">UI Exploration</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Domain</span><span class="cs-meta-val">Q-Commerce &middot; AI Feature</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Focus</span><span class="cs-meta-val">Assistive UX &middot; Microcopy &middot; Trust Design</span></div>
+      <div class="cs-meta-item"><span class="cs-meta-label">Tools</span><span class="cs-meta-val">Figma</span></div>
+    </div>
+  </div>
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-label">On this page</div>
+      <a href="#problem">Problem</a>
+      <a href="#goal">Goal</a>
+      <a href="#insight">Key Insight</a>
+      <a href="#solution">Solution</a>
+      <a href="#decisions">Design Decisions</a>
+      <a href="#components">UI Components</a>
+      <a href="#tradeoffs">Trade-offs</a>
+      <a href="#learnings">Learnings</a>
+      <a href="#next">Future Scope</a>
+      <div class="toc-spacer"></div>
+      <a href="../index.html#projects" class="toc-back">&#8592; Back to Work</a>
+    </aside>
+    <div class="cs-body">
+      <div class="cs-content">
+
+        <div class="cs-section reveal" id="problem">
+          <span class="cs-section-label">Problem</span>
+          <h2 class="cs-section-title">The same items, every week, from scratch</h2>
+          <p class="cs-body-text">Regular grocery users face three recurring issues that no current Q-commerce app solves well.</p>
+          <div class="card-grid cols3">
+            <div class="card">
+              <div class="card-num">01</div>
+              <div class="card-title">Repetitive effort</div>
+              <div class="card-body">Searching and adding the same items every single week &mdash; milk, eggs, bread &mdash; with zero memory from the app.</div>
+            </div>
+            <div class="card">
+              <div class="card-num">02</div>
+              <div class="card-title">Forgotten essentials</div>
+              <div class="card-body">Users regularly run out of staples because there&rsquo;s no system that tracks what they&rsquo;re likely to need next.</div>
+            </div>
+            <div class="card">
+              <div class="card-num">03</div>
+              <div class="card-title">Trust gap in automation</div>
+              <div class="card-body">Existing solutions either offer no help, or automate too aggressively &mdash; removing the user&rsquo;s sense of control entirely.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="goal">
+          <span class="cs-section-label">Goal</span>
+          <h2 class="cs-section-title">Assist, don&rsquo;t automate</h2>
+          <div class="focus-list">
+            <div class="focus-item"><span class="focus-icon">&#9889;</span><div class="focus-text"><strong>Reduce effort</strong> in weekly shopping without removing the user from the loop.</div></div>
+            <div class="focus-item"><span class="focus-icon">&#128722;</span><div class="focus-text"><strong>Prevent stockouts</strong> by surfacing items the user is likely to need before they think to search.</div></div>
+            <div class="focus-item"><span class="focus-icon">&#129504;</span><div class="focus-text"><strong>Feel intelligent but not intrusive</strong> &mdash; the system should prepare, not decide.</div></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="insight">
+          <span class="cs-section-label">Key Insight</span>
+          <h2 class="cs-section-title">Users want assistance with control</h2>
+          <div class="pull-quote">
+            <p>&ldquo;Users don&rsquo;t want automation. They want assistance with control. The system should prepare, not decide.&rdquo;</p>
+          </div>
+          <p class="cs-body-text">The distinction matters. A system that auto-checks out feels threatening. A system that says &ldquo;your weekly cart is ready &mdash; want to review it?&rdquo; feels like a helpful assistant. Same intelligence, completely different trust response.</p>
+        </div>
+
+        <div class="cs-section reveal" id="solution">
+          <span class="cs-section-label">Solution</span>
+          <h2 class="cs-section-title">Smart Cart &mdash; a pre-filled weekly cart</h2>
+          <p class="cs-body-text">A lightweight AI-driven feature that automatically prepares a weekly cart based on user behaviour &mdash; while keeping full control in the user&rsquo;s hands.</p>
+          <div class="card-grid">
+            <div class="card dark">
+              <div class="card-num">What it does</div>
+              <div class="card-body">Predicts items based on past purchase behaviour and surfaces them as a ready-to-review cart every week &mdash; no searching required.</div>
+            </div>
+            <div class="card">
+              <div class="card-num">How it communicates</div>
+              <div class="card-body">Contextual cues like &ldquo;You may run out soon&rdquo; and &ldquo;Usually bought every Monday&rdquo; replace raw data with human-readable signals.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="decisions">
+          <span class="cs-section-label">Design Decisions</span>
+          <h2 class="cs-section-title">Five choices that define the experience</h2>
+          <div class="insight-list">
+            <div class="insight-card reveal">
+              <div class="insight-n">01</div>
+              <div>
+                <div class="insight-title">Minimal intelligence, not overload</div>
+                <div class="insight-body">Instead of showing frequency stats or prediction scores, I used simple human-readable cues: &ldquo;You may run out soon&rdquo; and &ldquo;Usually bought every Monday.&rdquo; Keeps the UI clean while still feeling smart.</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">02</div>
+              <div>
+                <div class="insight-title">Control over automation</div>
+                <div class="insight-body">Users can adjust quantity instantly, replace items with alternatives, or skip and delay actions. Prevents the &ldquo;loss of control&rdquo; feeling that kills trust in AI features.</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">03</div>
+              <div>
+                <div class="insight-title">Low-pressure primary CTA</div>
+                <div class="insight-body">&ldquo;Review Smart Cart&rdquo; instead of &ldquo;Checkout Now.&rdquo; The system invites review first &mdash; builds trust and reduces friction before any commitment is made.</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">04</div>
+              <div>
+                <div class="insight-title">Contextual alternatives, not overwhelming choices</div>
+                <div class="insight-body">Only 2 alternatives shown per item, tagged clearly as &ldquo;Popular&rdquo; or &ldquo;Cheaper.&rdquo; Faster decision-making, less cognitive load &mdash; more choices would have paralysed users.</div>
+              </div>
+            </div>
+            <div class="insight-card reveal">
+              <div class="insight-n">05</div>
+              <div>
+                <div class="insight-title">Calm, assistive microcopy</div>
+                <div class="insight-body">All copy is short, human, and non-technical. &ldquo;Based on your weekly routine&rdquo; instead of &ldquo;AI-predicted reorder.&rdquo; Avoids making the feature feel like a complex system.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="components">
+          <span class="cs-section-label">UI Components</span>
+          <h2 class="cs-section-title">The five pieces of the system</h2>
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-num">Entry Point</div>
+              <div class="card-title">&ldquo;Your weekly cart is ready&rdquo;</div>
+              <div class="card-body">A non-intrusive banner on the home screen. Visible but not demanding &mdash; users can ignore it without friction.</div>
+            </div>
+            <div class="card dark">
+              <div class="card-num">Auto Cart Section</div>
+              <div class="card-title">Pre-filled items with contextual labels</div>
+              <div class="card-body">Each item shows a human-readable reason for its inclusion. No raw data, no percentages &mdash; just context.</div>
+            </div>
+            <div class="card">
+              <div class="card-num">Item Details</div>
+              <div class="card-title">Expandable &mdash; last order, frequency, alternatives</div>
+              <div class="card-body">Available on tap for users who want more context. Hidden by default to keep the main view clean.</div>
+            </div>
+            <div class="card dark">
+              <div class="card-num">Inline Editing</div>
+              <div class="card-title">Quantity adjustment without friction</div>
+              <div class="card-body">Edit directly in the cart view &mdash; no modal, no navigation. Changes feel instant and low-stakes.</div>
+            </div>
+            <div class="card">
+              <div class="card-num">Bill Summary + CTA</div>
+              <div class="card-title">Clear cost breakdown + action</div>
+              <div class="card-body">Full price transparency before any commitment. The CTA only appears after the user has reviewed the cart.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="tradeoffs">
+          <span class="cs-section-label">Trade-offs</span>
+          <h2 class="cs-section-title">What I chose not to build, and why</h2>
+          <div class="insight-list">
+            <div class="insight-card">
+              <div class="insight-n">&#8722;</div>
+              <div>
+                <div class="insight-title">No detailed analytics</div>
+                <div class="insight-body">Showing purchase frequency, prediction confidence, or usage stats would add cognitive load without improving the decision. The goal is action, not information.</div>
+              </div>
+            </div>
+            <div class="insight-card">
+              <div class="insight-n">&#8722;</div>
+              <div>
+                <div class="insight-title">No auto-checkout</div>
+                <div class="insight-body">Even if the system is 94% accurate, removing the review step destroys trust. Users need to feel in control of every purchase, especially recurring ones.</div>
+              </div>
+            </div>
+            <div class="insight-card">
+              <div class="insight-n">&#8722;</div>
+              <div>
+                <div class="insight-title">Limited alternatives</div>
+                <div class="insight-body">Showing 5+ alternatives per item creates decision paralysis. Two options with clear labels (&ldquo;Popular&rdquo;, &ldquo;Cheaper&rdquo;) is enough to feel helpful without overwhelming.</div>
+              </div>
+            </div>
+            <div class="insight-card">
+              <div class="insight-n">&#8722;</div>
+              <div>
+                <div class="insight-title">Minimal AI explanation</div>
+                <div class="insight-body">Explaining the model (&ldquo;this item was predicted because...&rdquo;) adds complexity without trust. Simple human cues build more confidence than technical transparency.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="learnings">
+          <span class="cs-section-label">Learnings</span>
+          <h2 class="cs-section-title">What this project taught me</h2>
+          <div class="closing-box">
+            <p>Good AI UX is invisible, not loud. Too much intelligence equals less trust. The best systems feel like: <strong>&ldquo;It just works for me.&rdquo;</strong></p>
+          </div>
+          <div class="dot-list" style="margin-top:20px">
+            <div class="dot-item"><div class="dot"></div><span>The hardest design problem in AI features isn&rsquo;t the intelligence &mdash; it&rsquo;s calibrating how much of it to show.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Microcopy carries more weight than UI components in trust-sensitive features. One wrong word and the feature feels creepy.</span></div>
+            <div class="dot-item"><div class="dot"></div><span>Designing for control is designing for trust. Every edit affordance is a trust signal.</span></div>
+          </div>
+        </div>
+
+        <div class="cs-section reveal" id="next">
+          <span class="cs-section-label">Future Scope</span>
+          <h2 class="cs-section-title">Where this goes next</h2>
+          <div class="card-grid cols3">
+            <div class="card dark">
+              <div class="card-title">Adaptive learning from edits</div>
+              <div class="card-body">Every time a user removes or replaces an item, the model updates. The cart gets more accurate with each weekly use.</div>
+            </div>
+            <div class="card dark">
+              <div class="card-title">Smart reminders</div>
+              <div class="card-body">Skip / delay logic &mdash; if a user skips an item two weeks in a row, the system stops suggesting it until behaviour changes.</div>
+            </div>
+            <div class="card dark">
+              <div class="card-title">Multi-user household patterns</div>
+              <div class="card-body">Shared carts for households where multiple people shop &mdash; aggregating patterns without exposing individual behaviour.</div>
+            </div>
+          </div>
+          <div class="pull-quote" style="margin-top:24px">
+            <p>Smart Cart is not about automation. It&rsquo;s about quietly removing effort from everyday decisions.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="page-footer-meta">
+        <div class="tools-row">
+          <span class="tool-pill">Figma</span>
+          <span class="tool-pill">AI Feature Design</span>
+          <span class="tool-pill">Microcopy</span>
+          <span class="tool-pill">Trust Design</span>
+        </div>
+        <a href="../index.html#projects" class="btn-back">&#8592; Back to Work</a>
+      </div>
+    </div>
+  </div>
+  <script src="../shared.js"></script>
+  <script>
+    const toc=document.querySelectorAll('.toc a[href^="#"]');
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){toc.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{threshold:.35});
+    document.querySelectorAll('.cs-section[id]').forEach(s=>obs.observe(s));
+  </script>
+</body>
+</html>
